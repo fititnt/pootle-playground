@@ -2313,3 +2313,1872 @@ $ docker ps --filter "status=exited"
 CONTAINER ID        IMAGE                      COMMAND                   CREATED             STATUS                      PORTS               NAMES
 c0f31b6db6fb        translate/pootle:demo      "/usr/local/bin/entr…"    27 minutes ago      Exited (1) 4 minutes ago                        pootle-playground_demo_1
 (...)
+
+## fititnt: Note: humm, lets do it again, just to be sure it's just something more simple
+
+
+# fititnt at bravo in /alligo/code/fititnt/pootle-playground on git:master x [12:10:04]
+$ docker system prune                         
+WARNING! This will remove:
+        - all stopped containers
+        - all networks not used by at least one container
+        - all dangling images
+        - all build cache
+Are you sure you want to continue? [y/N] y
+Deleted Containers:
+0960d7f01f98abeae7f2fd856aeabde1e27ac42e75d1599dc480d3e680aa46f2
+848d44d1ac2c894066b10abf31de8e1bbe6b2dc9f328cd538f177e3307419084
+bd4814c5b6800efeed5f05ec3d4fed1a9b1a65b150e71199dd3232ca431838ec
+b535da2e1edeacb8ef735de1b2a8c376919c80f79f89ba2218fe8cfb2e82f743
+5ce291949e8868f1fd46b29e38ef4ad61e4adb971835c8064a1ab46d90ebc836
+
+Deleted Networks:
+pootle-playground_default
+
+Total reclaimed space: 20.8kB
+
+# fititnt at bravo in /alligo/code/fititnt/pootle-playground on git:master x [12:10:09]
+$ clear
+
+
+# fititnt at bravo in /alligo/code/fititnt/pootle-playground on git:master x [12:33:58]
+$ cd ~/tmp
+
+# fititnt at bravo in ~/tmp [12:34:05]
+$ git clone git@github.com:1drop/pootle.git
+Cloning into 'pootle'...
+remote: Counting objects: 142, done.
+remote: Total 142 (delta 0), reused 0 (delta 0), pack-reused 142
+Receiving objects: 100% (142/142), 301.48 KiB | 320.00 KiB/s, done.
+Resolving deltas: 100% (46/46), done.
+Checking connectivity... done.
+
+# fititnt at bravo in ~/tmp [12:34:59]
+$ cd pootle 
+
+# fititnt at bravo in ~/tmp/pootle on git:master o [12:35:02]
+$ docker-compose up -d
+Creating network "pootle_default" with the default driver
+Creating volume "pootle_mysql-data" with default driver
+Creating volume "pootle_l10n-ter" with default driver
+Creating volume "pootle_pootle-po" with default driver
+Creating volume "pootle_pootle-git" with default driver
+Pulling mysql (mariadb:10)...
+10: Pulling from library/mariadb
+1c7fe136a31e: Pull complete
+ecb0394ab02f: Pull complete
+ece3821473b4: Pull complete
+b090b58fe851: Pull complete
+fdc67e5246f1: Pull complete
+7b0408b2b91f: Pull complete
+02c7ce6b6eea: Pull complete
+eb3d50d2d52c: Pull complete
+800dafb39329: Pull complete
+b98513c56899: Pull complete
+f7407e397090: Pull complete
+Digest: sha256:f2085c2176ba6294cf73033b344a420faa2ddae1b97b6795c101552e86284ba3
+Status: Downloaded newer image for mariadb:10
+Pulling redis (redis:)...
+latest: Pulling from library/redis
+683abbb4ea60: Already exists
+259238e792d8: Pull complete
+78399601c709: Pull complete
+f397da474601: Pull complete
+c57de4edc390: Pull complete
+b2ea05c9d9a1: Pull complete
+Digest: sha256:5534b92530acc653f0721ebfa14f31bc718f68bf9070cbba25bb00bc7aacfabb
+Status: Downloaded newer image for redis:latest
+Building pootle
+Step 1/24 : FROM webdevops/bootstrap:ubuntu-16.04
+ubuntu-16.04: Pulling from webdevops/bootstrap
+b234f539f7a1: Pull complete
+55172d420b43: Pull complete
+5ba5bbeb6b91: Pull complete
+43ae2841ad7a: Pull complete
+f6c9c6de4190: Pull complete
+8b6c485e187c: Pull complete
+92f906135b98: Pull complete
+Digest: sha256:c774f7c4573668d8fbbd8fbaa62b24407da716babc428575993e44323416bc24
+Status: Downloaded newer image for webdevops/bootstrap:ubuntu-16.04
+ ---> 9be74f962afd
+Step 2/24 : MAINTAINER Hans Hoechtl "hhoechtl@1drop.de"
+ ---> Running in 9a45a5132261
+Removing intermediate container 9a45a5132261
+ ---> 9490aaf28ee9
+Step 3/24 : ENV POOTLE_VERSION="2.7.6"
+ ---> Running in 886333a47526
+Removing intermediate container 886333a47526
+ ---> 5f44b6c6be23
+Step 4/24 : RUN chmod -R 2777 /tmp
+ ---> Running in bac7acf39c6d
+Removing intermediate container bac7acf39c6d
+ ---> 8a830db6c5b0
+Step 5/24 : RUN /usr/local/bin/apt-install build-essential   swig   git   xmlstarlet   xsltproc   zip   cron   supervisor   unzip   mysql-client   openssh-client   python-dev   libxml2-dev   libssl-dev   libxslt1-dev   zlib1g-dev   libmysqlclient-dev   python-pip   python-xapian   xapian-tools   python-setuptools
+ ---> Running in b104a071aa6d
+Get:1 http://security.ubuntu.com/ubuntu xenial-security InRelease [107 kB]
+Get:2 http://archive.ubuntu.com/ubuntu xenial InRelease [247 kB]
+Get:3 http://security.ubuntu.com/ubuntu xenial-security/universe Sources [83.5 kB]
+Get:4 http://archive.ubuntu.com/ubuntu xenial-updates InRelease [109 kB]
+Get:5 http://security.ubuntu.com/ubuntu xenial-security/main amd64 Packages [660 kB]
+Get:6 http://archive.ubuntu.com/ubuntu xenial-backports InRelease [107 kB]
+Get:7 http://archive.ubuntu.com/ubuntu xenial/universe Sources [9802 kB]
+Get:8 http://security.ubuntu.com/ubuntu xenial-security/restricted amd64 Packages [12.7 kB]
+Get:9 http://security.ubuntu.com/ubuntu xenial-security/universe amd64 Packages [452 kB]
+Get:10 http://security.ubuntu.com/ubuntu xenial-security/multiverse amd64 Packages [3735 B]
+Get:11 http://archive.ubuntu.com/ubuntu xenial/main amd64 Packages [1558 kB]
+Get:12 http://archive.ubuntu.com/ubuntu xenial/restricted amd64 Packages [14.1 kB]
+Get:13 http://archive.ubuntu.com/ubuntu xenial/universe amd64 Packages [9827 kB]
+Get:14 http://archive.ubuntu.com/ubuntu xenial/multiverse amd64 Packages [176 kB]
+Get:15 http://archive.ubuntu.com/ubuntu xenial-updates/universe Sources [260 kB]
+Get:16 http://archive.ubuntu.com/ubuntu xenial-updates/main amd64 Packages [1038 kB]
+Get:17 http://archive.ubuntu.com/ubuntu xenial-updates/restricted amd64 Packages [13.1 kB]
+Get:18 http://archive.ubuntu.com/ubuntu xenial-updates/universe amd64 Packages [825 kB]
+Get:19 http://archive.ubuntu.com/ubuntu xenial-updates/multiverse amd64 Packages [18.8 kB]
+Get:20 http://archive.ubuntu.com/ubuntu xenial-backports/main amd64 Packages [7321 B]
+Get:21 http://archive.ubuntu.com/ubuntu xenial-backports/universe amd64 Packages [8088 B]
+Fetched 25.3 MB in 6s (3822 kB/s)
+Reading package lists...
+Reading package lists...
+Building dependency tree...
+Reading state information...
+The following additional packages will be installed:
+  binutils bzip2 cpp cpp-5 dpkg-dev g++ g++-5 gcc gcc-5 gcc-5-base git-man
+  icu-devtools libaio1 libasan2 libatomic1 libbsd0 libc-dev-bin libc6-dev
+  libcc1-0 libcilkrts5 libdpkg-perl libedit2 liberror-perl libexpat1
+  libexpat1-dev libgcc-5-dev libgdbm3 libgomp1 libicu-dev libicu55 libisl15
+  libitm1 liblsan0 libmpc3 libmpfr4 libmpx0 libmysqlclient20 libnuma1
+  libperl5.22 libpython-dev libpython-stdlib libpython2.7 libpython2.7-dev
+  libpython2.7-minimal libpython2.7-stdlib libquadmath0 libssl1.0.0
+  libstdc++-5-dev libstdc++6 libtsan0 libubsan0 libxapian22v5 libxml2
+  libxslt1.1 linux-libc-dev make mime-support mysql-client-5.7
+  mysql-client-core-5.7 mysql-common patch perl perl-modules-5.22 python
+  python-meld3 python-minimal python-pip-whl python-pkg-resources python2.7
+  python2.7-dev python2.7-minimal swig3.0 xz-utils
+Suggested packages:
+  binutils-doc bzip2-doc cpp-doc gcc-5-locales anacron logrotate checksecurity
+  exim4 | postfix | mail-transport-agent debian-keyring g++-multilib
+  g++-5-multilib gcc-5-doc libstdc++6-5-dbg gcc-multilib manpages-dev autoconf
+  automake libtool flex bison gdb gcc-doc gcc-5-multilib libgcc1-dbg
+  libgomp1-dbg libitm1-dbg libatomic1-dbg libasan2-dbg liblsan0-dbg
+  libtsan0-dbg libubsan0-dbg libcilkrts5-dbg libmpx0-dbg libquadmath0-dbg
+  gettext-base git-daemon-run | git-daemon-sysvinit git-doc git-el git-email
+  git-gui gitk gitweb git-arch git-cvs git-mediawiki git-svn glibc-doc icu-doc
+  libstdc++-5-doc pkg-config make-doc ssh-askpass libpam-ssh keychain
+  monkeysphere ed diffutils-doc perl-doc libterm-readline-gnu-perl
+  | libterm-readline-perl-perl python-doc python-tk python-setuptools-doc
+  xapian-doc python2.7-doc binfmt-support supervisor-doc swig-doc
+  swig-examples swig3.0-examples swig3.0-doc
+Recommended packages:
+  fakeroot libalgorithm-merge-perl less rsync manpages manpages-dev
+  libfile-fcntllock-perl libssl-doc xml-core file xauth netbase rename
+  python-all-dev python-wheel
+The following NEW packages will be installed:
+  binutils build-essential bzip2 cpp cpp-5 cron dpkg-dev g++ g++-5 gcc gcc-5
+  git git-man icu-devtools libaio1 libasan2 libatomic1 libbsd0 libc-dev-bin
+  libc6-dev libcc1-0 libcilkrts5 libdpkg-perl libedit2 liberror-perl libexpat1
+  libexpat1-dev libgcc-5-dev libgdbm3 libgomp1 libicu-dev libicu55 libisl15
+  libitm1 liblsan0 libmpc3 libmpfr4 libmpx0 libmysqlclient-dev
+  libmysqlclient20 libnuma1 libperl5.22 libpython-dev libpython-stdlib
+  libpython2.7 libpython2.7-dev libpython2.7-minimal libpython2.7-stdlib
+  libquadmath0 libssl-dev libstdc++-5-dev libtsan0 libubsan0 libxapian22v5
+  libxml2 libxml2-dev libxslt1-dev libxslt1.1 linux-libc-dev make mime-support
+  mysql-client mysql-client-5.7 mysql-client-core-5.7 mysql-common
+  openssh-client patch perl perl-modules-5.22 python python-dev python-meld3
+  python-minimal python-pip python-pip-whl python-pkg-resources
+  python-setuptools python-xapian python2.7 python2.7-dev python2.7-minimal
+  supervisor swig swig3.0 unzip xapian-tools xmlstarlet xsltproc xz-utils zip
+  zlib1g-dev
+The following packages will be upgraded:
+  gcc-5-base libssl1.0.0 libstdc++6
+3 upgraded, 91 newly installed, 0 to remove and 5 not upgraded.
+Need to get 116 MB of archives.
+After this operation, 455 MB of additional disk space will be used.
+Get:1 http://archive.ubuntu.com/ubuntu xenial/main amd64 cron amd64 3.0pl1-128ubuntu2 [68.4 kB]
+Get:2 http://archive.ubuntu.com/ubuntu xenial/main amd64 libgdbm3 amd64 1.8.3-13.1 [16.9 kB]
+Get:3 http://archive.ubuntu.com/ubuntu xenial-updates/main amd64 perl-modules-5.22 all 5.22.1-9ubuntu0.5 [2645 kB]
+Get:4 http://archive.ubuntu.com/ubuntu xenial-updates/main amd64 libperl5.22 amd64 5.22.1-9ubuntu0.5 [3396 kB]
+Get:5 http://archive.ubuntu.com/ubuntu xenial-updates/main amd64 perl amd64 5.22.1-9ubuntu0.5 [238 kB]
+Get:6 http://archive.ubuntu.com/ubuntu xenial-updates/main amd64 libpython2.7-minimal amd64 2.7.12-1ubuntu0~16.04.3 [340 kB]
+Get:7 http://archive.ubuntu.com/ubuntu xenial-updates/main amd64 python2.7-minimal amd64 2.7.12-1ubuntu0~16.04.3 [1261 kB]
+Get:8 http://archive.ubuntu.com/ubuntu xenial-updates/main amd64 python-minimal amd64 2.7.12-1~16.04 [28.1 kB]
+Get:9 http://archive.ubuntu.com/ubuntu xenial/main amd64 mime-support all 3.59ubuntu1 [31.0 kB]
+Get:10 http://archive.ubuntu.com/ubuntu xenial-updates/main amd64 libexpat1 amd64 2.1.0-7ubuntu0.16.04.3 [71.2 kB]
+Get:11 http://archive.ubuntu.com/ubuntu xenial-updates/main amd64 libssl1.0.0 amd64 1.0.2g-1ubuntu4.13 [1083 kB]
+Get:12 http://archive.ubuntu.com/ubuntu xenial-updates/main amd64 libpython2.7-stdlib amd64 2.7.12-1ubuntu0~16.04.3 [1880 kB]
+Get:13 http://archive.ubuntu.com/ubuntu xenial-updates/main amd64 python2.7 amd64 2.7.12-1ubuntu0~16.04.3 [224 kB]
+Get:14 http://archive.ubuntu.com/ubuntu xenial-updates/main amd64 libpython-stdlib amd64 2.7.12-1~16.04 [7768 B]
+Get:15 http://archive.ubuntu.com/ubuntu xenial-updates/main amd64 python amd64 2.7.12-1~16.04 [137 kB]
+Get:16 http://archive.ubuntu.com/ubuntu xenial/main amd64 libmpfr4 amd64 3.1.4-1 [191 kB]
+Get:17 http://archive.ubuntu.com/ubuntu xenial/main amd64 libmpc3 amd64 1.0.3-1 [39.7 kB]
+Get:18 http://archive.ubuntu.com/ubuntu xenial-updates/main amd64 gcc-5-base amd64 5.4.0-6ubuntu1~16.04.10 [17.3 kB]
+Get:19 http://archive.ubuntu.com/ubuntu xenial-updates/main amd64 libstdc++6 amd64 5.4.0-6ubuntu1~16.04.10 [393 kB]
+Get:20 http://archive.ubuntu.com/ubuntu xenial/main amd64 bzip2 amd64 1.0.6-8 [32.7 kB]
+Get:21 http://archive.ubuntu.com/ubuntu xenial/main amd64 libbsd0 amd64 0.8.2-1 [41.7 kB]
+Get:22 http://archive.ubuntu.com/ubuntu xenial/main amd64 libedit2 amd64 3.1-20150325-1ubuntu2 [76.5 kB]
+Get:23 http://archive.ubuntu.com/ubuntu xenial-updates/main amd64 libicu55 amd64 55.1-7ubuntu0.4 [7646 kB]
+Get:24 http://archive.ubuntu.com/ubuntu xenial-updates/main amd64 libnuma1 amd64 2.0.11-1ubuntu1.1 [21.0 kB]
+Get:25 http://archive.ubuntu.com/ubuntu xenial-updates/main amd64 libxml2 amd64 2.9.3+dfsg1-1ubuntu0.5 [697 kB]
+Get:26 http://archive.ubuntu.com/ubuntu xenial-updates/main amd64 openssh-client amd64 1:7.2p2-4ubuntu2.4 [589 kB]
+Get:27 http://archive.ubuntu.com/ubuntu xenial-updates/main amd64 binutils amd64 2.26.1-1ubuntu1~16.04.6 [2311 kB]
+Get:28 http://archive.ubuntu.com/ubuntu xenial-updates/main amd64 libc-dev-bin amd64 2.23-0ubuntu10 [68.7 kB]
+Get:29 http://archive.ubuntu.com/ubuntu xenial-updates/main amd64 linux-libc-dev amd64 4.4.0-130.156 [866 kB]
+Get:30 http://archive.ubuntu.com/ubuntu xenial-updates/main amd64 libc6-dev amd64 2.23-0ubuntu10 [2079 kB]
+Get:31 http://archive.ubuntu.com/ubuntu xenial/main amd64 libisl15 amd64 0.16.1-1 [524 kB]
+Get:32 http://archive.ubuntu.com/ubuntu xenial-updates/main amd64 cpp-5 amd64 5.4.0-6ubuntu1~16.04.10 [7671 kB]
+Get:33 http://archive.ubuntu.com/ubuntu xenial/main amd64 cpp amd64 4:5.3.1-1ubuntu1 [27.7 kB]
+Get:34 http://archive.ubuntu.com/ubuntu xenial-updates/main amd64 libcc1-0 amd64 5.4.0-6ubuntu1~16.04.10 [38.8 kB]
+Get:35 http://archive.ubuntu.com/ubuntu xenial-updates/main amd64 libgomp1 amd64 5.4.0-6ubuntu1~16.04.10 [55.1 kB]
+Get:36 http://archive.ubuntu.com/ubuntu xenial-updates/main amd64 libitm1 amd64 5.4.0-6ubuntu1~16.04.10 [27.4 kB]
+Get:37 http://archive.ubuntu.com/ubuntu xenial-updates/main amd64 libatomic1 amd64 5.4.0-6ubuntu1~16.04.10 [8888 B]
+Get:38 http://archive.ubuntu.com/ubuntu xenial-updates/main amd64 libasan2 amd64 5.4.0-6ubuntu1~16.04.10 [264 kB]
+Get:39 http://archive.ubuntu.com/ubuntu xenial-updates/main amd64 liblsan0 amd64 5.4.0-6ubuntu1~16.04.10 [105 kB]
+Get:40 http://archive.ubuntu.com/ubuntu xenial-updates/main amd64 libtsan0 amd64 5.4.0-6ubuntu1~16.04.10 [244 kB]
+Get:41 http://archive.ubuntu.com/ubuntu xenial-updates/main amd64 libubsan0 amd64 5.4.0-6ubuntu1~16.04.10 [95.3 kB]
+Get:42 http://archive.ubuntu.com/ubuntu xenial-updates/main amd64 libcilkrts5 amd64 5.4.0-6ubuntu1~16.04.10 [40.1 kB]
+Get:43 http://archive.ubuntu.com/ubuntu xenial-updates/main amd64 libmpx0 amd64 5.4.0-6ubuntu1~16.04.10 [9764 B]
+Get:44 http://archive.ubuntu.com/ubuntu xenial-updates/main amd64 libquadmath0 amd64 5.4.0-6ubuntu1~16.04.10 [131 kB]
+Get:45 http://archive.ubuntu.com/ubuntu xenial-updates/main amd64 libgcc-5-dev amd64 5.4.0-6ubuntu1~16.04.10 [2228 kB]
+Get:46 http://archive.ubuntu.com/ubuntu xenial-updates/main amd64 gcc-5 amd64 5.4.0-6ubuntu1~16.04.10 [8426 kB]
+Get:47 http://archive.ubuntu.com/ubuntu xenial/main amd64 gcc amd64 4:5.3.1-1ubuntu1 [5244 B]
+Get:48 http://archive.ubuntu.com/ubuntu xenial-updates/main amd64 libstdc++-5-dev amd64 5.4.0-6ubuntu1~16.04.10 [1426 kB]
+Get:49 http://archive.ubuntu.com/ubuntu xenial-updates/main amd64 g++-5 amd64 5.4.0-6ubuntu1~16.04.10 [8319 kB]
+Get:50 http://archive.ubuntu.com/ubuntu xenial/main amd64 g++ amd64 4:5.3.1-1ubuntu1 [1504 B]
+Get:51 http://archive.ubuntu.com/ubuntu xenial/main amd64 make amd64 4.1-6 [151 kB]
+Get:52 http://archive.ubuntu.com/ubuntu xenial-updates/main amd64 libdpkg-perl all 1.18.4ubuntu1.4 [195 kB]
+Get:53 http://archive.ubuntu.com/ubuntu xenial/main amd64 xz-utils amd64 5.1.1alpha+20120614-2ubuntu2 [78.8 kB]
+Get:54 http://archive.ubuntu.com/ubuntu xenial-updates/main amd64 patch amd64 2.7.5-1ubuntu0.16.04.1 [90.5 kB]
+Get:55 http://archive.ubuntu.com/ubuntu xenial-updates/main amd64 dpkg-dev all 1.18.4ubuntu1.4 [584 kB]
+Get:56 http://archive.ubuntu.com/ubuntu xenial/main amd64 build-essential amd64 12.1ubuntu2 [4758 B]
+Get:57 http://archive.ubuntu.com/ubuntu xenial/main amd64 liberror-perl all 0.17-1.2 [19.6 kB]
+Get:58 http://archive.ubuntu.com/ubuntu xenial-updates/main amd64 git-man all 1:2.7.4-0ubuntu1.4 [736 kB]
+Get:59 http://archive.ubuntu.com/ubuntu xenial-updates/main amd64 git amd64 1:2.7.4-0ubuntu1.4 [3158 kB]
+Get:60 http://archive.ubuntu.com/ubuntu xenial-updates/main amd64 icu-devtools amd64 55.1-7ubuntu0.4 [166 kB]
+Get:61 http://archive.ubuntu.com/ubuntu xenial/main amd64 libaio1 amd64 0.3.110-2 [6356 B]
+Get:62 http://archive.ubuntu.com/ubuntu xenial-updates/main amd64 libexpat1-dev amd64 2.1.0-7ubuntu0.16.04.3 [115 kB]
+Get:63 http://archive.ubuntu.com/ubuntu xenial-updates/main amd64 libicu-dev amd64 55.1-7ubuntu0.4 [8566 kB]
+Get:64 http://archive.ubuntu.com/ubuntu xenial-updates/main amd64 mysql-common all 5.7.22-0ubuntu0.16.04.1 [15.4 kB]
+Get:65 http://archive.ubuntu.com/ubuntu xenial-updates/main amd64 libmysqlclient20 amd64 5.7.22-0ubuntu0.16.04.1 [809 kB]
+Get:66 http://archive.ubuntu.com/ubuntu xenial-updates/main amd64 zlib1g-dev amd64 1:1.2.8.dfsg-2ubuntu4.1 [168 kB]
+Get:67 http://archive.ubuntu.com/ubuntu xenial-updates/main amd64 libmysqlclient-dev amd64 5.7.22-0ubuntu0.16.04.1 [1159 kB]
+Get:68 http://archive.ubuntu.com/ubuntu xenial-updates/main amd64 libpython2.7 amd64 2.7.12-1ubuntu0~16.04.3 [1070 kB]
+Get:69 http://archive.ubuntu.com/ubuntu xenial-updates/main amd64 libpython2.7-dev amd64 2.7.12-1ubuntu0~16.04.3 [27.8 MB]
+Get:70 http://archive.ubuntu.com/ubuntu xenial-updates/main amd64 libpython-dev amd64 2.7.12-1~16.04 [7840 B]
+Get:71 http://archive.ubuntu.com/ubuntu xenial-updates/main amd64 libssl-dev amd64 1.0.2g-1ubuntu4.13 [1342 kB]
+Get:72 http://archive.ubuntu.com/ubuntu xenial/main amd64 libxapian22v5 amd64 1.2.22-2 [589 kB]
+Get:73 http://archive.ubuntu.com/ubuntu xenial-updates/main amd64 libxml2-dev amd64 2.9.3+dfsg1-1ubuntu0.5 [741 kB]
+Get:74 http://archive.ubuntu.com/ubuntu xenial-updates/main amd64 libxslt1.1 amd64 1.1.28-2.1ubuntu0.1 [145 kB]
+Get:75 http://archive.ubuntu.com/ubuntu xenial-updates/main amd64 libxslt1-dev amd64 1.1.28-2.1ubuntu0.1 [406 kB]
+Get:76 http://archive.ubuntu.com/ubuntu xenial-updates/main amd64 mysql-client-core-5.7 amd64 5.7.22-0ubuntu0.16.04.1 [6425 kB]
+Get:77 http://archive.ubuntu.com/ubuntu xenial-updates/main amd64 mysql-client-5.7 amd64 5.7.22-0ubuntu0.16.04.1 [1673 kB]
+Get:78 http://archive.ubuntu.com/ubuntu xenial-updates/main amd64 mysql-client all 5.7.22-0ubuntu0.16.04.1 [10.0 kB]
+Get:79 http://archive.ubuntu.com/ubuntu xenial-updates/main amd64 python2.7-dev amd64 2.7.12-1ubuntu0~16.04.3 [276 kB]
+Get:80 http://archive.ubuntu.com/ubuntu xenial-updates/main amd64 python-dev amd64 2.7.12-1~16.04 [1186 B]
+Get:81 http://archive.ubuntu.com/ubuntu xenial-updates/universe amd64 python-pip-whl all 8.1.1-2ubuntu0.4 [1110 kB]
+Get:82 http://archive.ubuntu.com/ubuntu xenial-updates/universe amd64 python-pip all 8.1.1-2ubuntu0.4 [144 kB]
+Get:83 http://archive.ubuntu.com/ubuntu xenial/main amd64 python-pkg-resources all 20.7.0-1 [108 kB]
+Get:84 http://archive.ubuntu.com/ubuntu xenial/main amd64 python-setuptools all 20.7.0-1 [169 kB]
+Get:85 http://archive.ubuntu.com/ubuntu xenial/main amd64 python-xapian amd64 1.2.22-2build1 [207 kB]
+Get:86 http://archive.ubuntu.com/ubuntu xenial/universe amd64 swig3.0 amd64 3.0.8-0ubuntu3 [995 kB]
+Get:87 http://archive.ubuntu.com/ubuntu xenial/universe amd64 swig amd64 3.0.8-0ubuntu3 [6278 B]
+Get:88 http://archive.ubuntu.com/ubuntu xenial/main amd64 unzip amd64 6.0-20ubuntu1 [158 kB]
+Get:89 http://archive.ubuntu.com/ubuntu xenial/universe amd64 xapian-tools amd64 1.2.22-2 [89.0 kB]
+Get:90 http://archive.ubuntu.com/ubuntu xenial/universe amd64 xmlstarlet amd64 1.6.1-1ubuntu1 [96.0 kB]
+Get:91 http://archive.ubuntu.com/ubuntu xenial-updates/main amd64 xsltproc amd64 1.1.28-2.1ubuntu0.1 [13.4 kB]
+Get:92 http://archive.ubuntu.com/ubuntu xenial/main amd64 zip amd64 3.0-11 [158 kB]
+Get:93 http://archive.ubuntu.com/ubuntu xenial/universe amd64 python-meld3 all 1.0.2-2 [30.9 kB]
+Get:94 http://archive.ubuntu.com/ubuntu xenial-updates/universe amd64 supervisor all 3.2.0-2ubuntu0.2 [253 kB]
+debconf: delaying package configuration, since apt-utils is not installed
+Fetched 116 MB in 16s (6982 kB/s)
+Selecting previously unselected package cron.
+(Reading database ... 5257 files and directories currently installed.)
+Preparing to unpack .../cron_3.0pl1-128ubuntu2_amd64.deb ...
+Unpacking cron (3.0pl1-128ubuntu2) ...
+Selecting previously unselected package libgdbm3:amd64.
+Preparing to unpack .../libgdbm3_1.8.3-13.1_amd64.deb ...
+Unpacking libgdbm3:amd64 (1.8.3-13.1) ...
+Selecting previously unselected package perl-modules-5.22.
+Preparing to unpack .../perl-modules-5.22_5.22.1-9ubuntu0.5_all.deb ...
+Unpacking perl-modules-5.22 (5.22.1-9ubuntu0.5) ...
+Selecting previously unselected package libperl5.22:amd64.
+Preparing to unpack .../libperl5.22_5.22.1-9ubuntu0.5_amd64.deb ...
+Unpacking libperl5.22:amd64 (5.22.1-9ubuntu0.5) ...
+Selecting previously unselected package perl.
+Preparing to unpack .../perl_5.22.1-9ubuntu0.5_amd64.deb ...
+Unpacking perl (5.22.1-9ubuntu0.5) ...
+Selecting previously unselected package libpython2.7-minimal:amd64.
+Preparing to unpack .../libpython2.7-minimal_2.7.12-1ubuntu0~16.04.3_amd64.deb ...
+Unpacking libpython2.7-minimal:amd64 (2.7.12-1ubuntu0~16.04.3) ...
+Selecting previously unselected package python2.7-minimal.
+Preparing to unpack .../python2.7-minimal_2.7.12-1ubuntu0~16.04.3_amd64.deb ...
+Unpacking python2.7-minimal (2.7.12-1ubuntu0~16.04.3) ...
+Selecting previously unselected package python-minimal.
+Preparing to unpack .../python-minimal_2.7.12-1~16.04_amd64.deb ...
+Unpacking python-minimal (2.7.12-1~16.04) ...
+Selecting previously unselected package mime-support.
+Preparing to unpack .../mime-support_3.59ubuntu1_all.deb ...
+Unpacking mime-support (3.59ubuntu1) ...
+Selecting previously unselected package libexpat1:amd64.
+Preparing to unpack .../libexpat1_2.1.0-7ubuntu0.16.04.3_amd64.deb ...
+Unpacking libexpat1:amd64 (2.1.0-7ubuntu0.16.04.3) ...
+Preparing to unpack .../libssl1.0.0_1.0.2g-1ubuntu4.13_amd64.deb ...
+Unpacking libssl1.0.0:amd64 (1.0.2g-1ubuntu4.13) over (1.0.2g-1ubuntu4.12) ...
+Selecting previously unselected package libpython2.7-stdlib:amd64.
+Preparing to unpack .../libpython2.7-stdlib_2.7.12-1ubuntu0~16.04.3_amd64.deb ...
+Unpacking libpython2.7-stdlib:amd64 (2.7.12-1ubuntu0~16.04.3) ...
+Selecting previously unselected package python2.7.
+Preparing to unpack .../python2.7_2.7.12-1ubuntu0~16.04.3_amd64.deb ...
+Unpacking python2.7 (2.7.12-1ubuntu0~16.04.3) ...
+Selecting previously unselected package libpython-stdlib:amd64.
+Preparing to unpack .../libpython-stdlib_2.7.12-1~16.04_amd64.deb ...
+Unpacking libpython-stdlib:amd64 (2.7.12-1~16.04) ...
+Processing triggers for systemd (229-4ubuntu21.2) ...
+Processing triggers for libc-bin (2.23-0ubuntu10) ...
+Setting up libpython2.7-minimal:amd64 (2.7.12-1ubuntu0~16.04.3) ...
+Setting up python2.7-minimal (2.7.12-1ubuntu0~16.04.3) ...
+Setting up python-minimal (2.7.12-1~16.04) ...
+Selecting previously unselected package python.
+(Reading database ... 7849 files and directories currently installed.)
+Preparing to unpack .../python_2.7.12-1~16.04_amd64.deb ...
+Unpacking python (2.7.12-1~16.04) ...
+Selecting previously unselected package libmpfr4:amd64.
+Preparing to unpack .../libmpfr4_3.1.4-1_amd64.deb ...
+Unpacking libmpfr4:amd64 (3.1.4-1) ...
+Selecting previously unselected package libmpc3:amd64.
+Preparing to unpack .../libmpc3_1.0.3-1_amd64.deb ...
+Unpacking libmpc3:amd64 (1.0.3-1) ...
+Preparing to unpack .../gcc-5-base_5.4.0-6ubuntu1~16.04.10_amd64.deb ...
+Unpacking gcc-5-base:amd64 (5.4.0-6ubuntu1~16.04.10) over (5.4.0-6ubuntu1~16.04.9) ...
+Processing triggers for libc-bin (2.23-0ubuntu10) ...
+Setting up gcc-5-base:amd64 (5.4.0-6ubuntu1~16.04.10) ...
+(Reading database ... 7926 files and directories currently installed.)
+Preparing to unpack .../libstdc++6_5.4.0-6ubuntu1~16.04.10_amd64.deb ...
+Unpacking libstdc++6:amd64 (5.4.0-6ubuntu1~16.04.10) over (5.4.0-6ubuntu1~16.04.9) ...
+Processing triggers for libc-bin (2.23-0ubuntu10) ...
+Setting up libstdc++6:amd64 (5.4.0-6ubuntu1~16.04.10) ...
+Processing triggers for libc-bin (2.23-0ubuntu10) ...
+Selecting previously unselected package bzip2.
+(Reading database ... 7926 files and directories currently installed.)
+Preparing to unpack .../bzip2_1.0.6-8_amd64.deb ...
+Unpacking bzip2 (1.0.6-8) ...
+Selecting previously unselected package libbsd0:amd64.
+Preparing to unpack .../libbsd0_0.8.2-1_amd64.deb ...
+Unpacking libbsd0:amd64 (0.8.2-1) ...
+Selecting previously unselected package libedit2:amd64.
+Preparing to unpack .../libedit2_3.1-20150325-1ubuntu2_amd64.deb ...
+Unpacking libedit2:amd64 (3.1-20150325-1ubuntu2) ...
+Selecting previously unselected package libicu55:amd64.
+Preparing to unpack .../libicu55_55.1-7ubuntu0.4_amd64.deb ...
+Unpacking libicu55:amd64 (55.1-7ubuntu0.4) ...
+Selecting previously unselected package libnuma1:amd64.
+Preparing to unpack .../libnuma1_2.0.11-1ubuntu1.1_amd64.deb ...
+Unpacking libnuma1:amd64 (2.0.11-1ubuntu1.1) ...
+Selecting previously unselected package libxml2:amd64.
+Preparing to unpack .../libxml2_2.9.3+dfsg1-1ubuntu0.5_amd64.deb ...
+Unpacking libxml2:amd64 (2.9.3+dfsg1-1ubuntu0.5) ...
+Selecting previously unselected package openssh-client.
+Preparing to unpack .../openssh-client_1%3a7.2p2-4ubuntu2.4_amd64.deb ...
+Unpacking openssh-client (1:7.2p2-4ubuntu2.4) ...
+Selecting previously unselected package binutils.
+Preparing to unpack .../binutils_2.26.1-1ubuntu1~16.04.6_amd64.deb ...
+Unpacking binutils (2.26.1-1ubuntu1~16.04.6) ...
+Selecting previously unselected package libc-dev-bin.
+Preparing to unpack .../libc-dev-bin_2.23-0ubuntu10_amd64.deb ...
+Unpacking libc-dev-bin (2.23-0ubuntu10) ...
+Selecting previously unselected package linux-libc-dev:amd64.
+Preparing to unpack .../linux-libc-dev_4.4.0-130.156_amd64.deb ...
+Unpacking linux-libc-dev:amd64 (4.4.0-130.156) ...
+Selecting previously unselected package libc6-dev:amd64.
+Preparing to unpack .../libc6-dev_2.23-0ubuntu10_amd64.deb ...
+Unpacking libc6-dev:amd64 (2.23-0ubuntu10) ...
+Selecting previously unselected package libisl15:amd64.
+Preparing to unpack .../libisl15_0.16.1-1_amd64.deb ...
+Unpacking libisl15:amd64 (0.16.1-1) ...
+Selecting previously unselected package cpp-5.
+Preparing to unpack .../cpp-5_5.4.0-6ubuntu1~16.04.10_amd64.deb ...
+Unpacking cpp-5 (5.4.0-6ubuntu1~16.04.10) ...
+Selecting previously unselected package cpp.
+Preparing to unpack .../cpp_4%3a5.3.1-1ubuntu1_amd64.deb ...
+Unpacking cpp (4:5.3.1-1ubuntu1) ...
+Selecting previously unselected package libcc1-0:amd64.
+Preparing to unpack .../libcc1-0_5.4.0-6ubuntu1~16.04.10_amd64.deb ...
+Unpacking libcc1-0:amd64 (5.4.0-6ubuntu1~16.04.10) ...
+Selecting previously unselected package libgomp1:amd64.
+Preparing to unpack .../libgomp1_5.4.0-6ubuntu1~16.04.10_amd64.deb ...
+Unpacking libgomp1:amd64 (5.4.0-6ubuntu1~16.04.10) ...
+Selecting previously unselected package libitm1:amd64.
+Preparing to unpack .../libitm1_5.4.0-6ubuntu1~16.04.10_amd64.deb ...
+Unpacking libitm1:amd64 (5.4.0-6ubuntu1~16.04.10) ...
+Selecting previously unselected package libatomic1:amd64.
+Preparing to unpack .../libatomic1_5.4.0-6ubuntu1~16.04.10_amd64.deb ...
+Unpacking libatomic1:amd64 (5.4.0-6ubuntu1~16.04.10) ...
+Selecting previously unselected package libasan2:amd64.
+Preparing to unpack .../libasan2_5.4.0-6ubuntu1~16.04.10_amd64.deb ...
+Unpacking libasan2:amd64 (5.4.0-6ubuntu1~16.04.10) ...
+Selecting previously unselected package liblsan0:amd64.
+Preparing to unpack .../liblsan0_5.4.0-6ubuntu1~16.04.10_amd64.deb ...
+Unpacking liblsan0:amd64 (5.4.0-6ubuntu1~16.04.10) ...
+Selecting previously unselected package libtsan0:amd64.
+Preparing to unpack .../libtsan0_5.4.0-6ubuntu1~16.04.10_amd64.deb ...
+Unpacking libtsan0:amd64 (5.4.0-6ubuntu1~16.04.10) ...
+Selecting previously unselected package libubsan0:amd64.
+Preparing to unpack .../libubsan0_5.4.0-6ubuntu1~16.04.10_amd64.deb ...
+Unpacking libubsan0:amd64 (5.4.0-6ubuntu1~16.04.10) ...
+Selecting previously unselected package libcilkrts5:amd64.
+Preparing to unpack .../libcilkrts5_5.4.0-6ubuntu1~16.04.10_amd64.deb ...
+Unpacking libcilkrts5:amd64 (5.4.0-6ubuntu1~16.04.10) ...
+Selecting previously unselected package libmpx0:amd64.
+Preparing to unpack .../libmpx0_5.4.0-6ubuntu1~16.04.10_amd64.deb ...
+Unpacking libmpx0:amd64 (5.4.0-6ubuntu1~16.04.10) ...
+Selecting previously unselected package libquadmath0:amd64.
+Preparing to unpack .../libquadmath0_5.4.0-6ubuntu1~16.04.10_amd64.deb ...
+Unpacking libquadmath0:amd64 (5.4.0-6ubuntu1~16.04.10) ...
+Selecting previously unselected package libgcc-5-dev:amd64.
+Preparing to unpack .../libgcc-5-dev_5.4.0-6ubuntu1~16.04.10_amd64.deb ...
+Unpacking libgcc-5-dev:amd64 (5.4.0-6ubuntu1~16.04.10) ...
+Selecting previously unselected package gcc-5.
+Preparing to unpack .../gcc-5_5.4.0-6ubuntu1~16.04.10_amd64.deb ...
+Unpacking gcc-5 (5.4.0-6ubuntu1~16.04.10) ...
+Selecting previously unselected package gcc.
+Preparing to unpack .../gcc_4%3a5.3.1-1ubuntu1_amd64.deb ...
+Unpacking gcc (4:5.3.1-1ubuntu1) ...
+Selecting previously unselected package libstdc++-5-dev:amd64.
+Preparing to unpack .../libstdc++-5-dev_5.4.0-6ubuntu1~16.04.10_amd64.deb ...
+Unpacking libstdc++-5-dev:amd64 (5.4.0-6ubuntu1~16.04.10) ...
+Selecting previously unselected package g++-5.
+Preparing to unpack .../g++-5_5.4.0-6ubuntu1~16.04.10_amd64.deb ...
+Unpacking g++-5 (5.4.0-6ubuntu1~16.04.10) ...
+Selecting previously unselected package g++.
+Preparing to unpack .../g++_4%3a5.3.1-1ubuntu1_amd64.deb ...
+Unpacking g++ (4:5.3.1-1ubuntu1) ...
+Selecting previously unselected package make.
+Preparing to unpack .../archives/make_4.1-6_amd64.deb ...
+Unpacking make (4.1-6) ...
+Selecting previously unselected package libdpkg-perl.
+Preparing to unpack .../libdpkg-perl_1.18.4ubuntu1.4_all.deb ...
+Unpacking libdpkg-perl (1.18.4ubuntu1.4) ...
+Selecting previously unselected package xz-utils.
+Preparing to unpack .../xz-utils_5.1.1alpha+20120614-2ubuntu2_amd64.deb ...
+Unpacking xz-utils (5.1.1alpha+20120614-2ubuntu2) ...
+Selecting previously unselected package patch.
+Preparing to unpack .../patch_2.7.5-1ubuntu0.16.04.1_amd64.deb ...
+Unpacking patch (2.7.5-1ubuntu0.16.04.1) ...
+Selecting previously unselected package dpkg-dev.
+Preparing to unpack .../dpkg-dev_1.18.4ubuntu1.4_all.deb ...
+Unpacking dpkg-dev (1.18.4ubuntu1.4) ...
+Selecting previously unselected package build-essential.
+Preparing to unpack .../build-essential_12.1ubuntu2_amd64.deb ...
+Unpacking build-essential (12.1ubuntu2) ...
+Selecting previously unselected package liberror-perl.
+Preparing to unpack .../liberror-perl_0.17-1.2_all.deb ...
+Unpacking liberror-perl (0.17-1.2) ...
+Selecting previously unselected package git-man.
+Preparing to unpack .../git-man_1%3a2.7.4-0ubuntu1.4_all.deb ...
+Unpacking git-man (1:2.7.4-0ubuntu1.4) ...
+Selecting previously unselected package git.
+Preparing to unpack .../git_1%3a2.7.4-0ubuntu1.4_amd64.deb ...
+Unpacking git (1:2.7.4-0ubuntu1.4) ...
+Selecting previously unselected package icu-devtools.
+Preparing to unpack .../icu-devtools_55.1-7ubuntu0.4_amd64.deb ...
+Unpacking icu-devtools (55.1-7ubuntu0.4) ...
+Selecting previously unselected package libaio1:amd64.
+Preparing to unpack .../libaio1_0.3.110-2_amd64.deb ...
+Unpacking libaio1:amd64 (0.3.110-2) ...
+Selecting previously unselected package libexpat1-dev:amd64.
+Preparing to unpack .../libexpat1-dev_2.1.0-7ubuntu0.16.04.3_amd64.deb ...
+Unpacking libexpat1-dev:amd64 (2.1.0-7ubuntu0.16.04.3) ...
+Selecting previously unselected package libicu-dev:amd64.
+Preparing to unpack .../libicu-dev_55.1-7ubuntu0.4_amd64.deb ...
+Unpacking libicu-dev:amd64 (55.1-7ubuntu0.4) ...
+Selecting previously unselected package mysql-common.
+Preparing to unpack .../mysql-common_5.7.22-0ubuntu0.16.04.1_all.deb ...
+Unpacking mysql-common (5.7.22-0ubuntu0.16.04.1) ...
+Selecting previously unselected package libmysqlclient20:amd64.
+Preparing to unpack .../libmysqlclient20_5.7.22-0ubuntu0.16.04.1_amd64.deb ...
+Unpacking libmysqlclient20:amd64 (5.7.22-0ubuntu0.16.04.1) ...
+Selecting previously unselected package zlib1g-dev:amd64.
+Preparing to unpack .../zlib1g-dev_1%3a1.2.8.dfsg-2ubuntu4.1_amd64.deb ...
+Unpacking zlib1g-dev:amd64 (1:1.2.8.dfsg-2ubuntu4.1) ...
+Selecting previously unselected package libmysqlclient-dev.
+Preparing to unpack .../libmysqlclient-dev_5.7.22-0ubuntu0.16.04.1_amd64.deb ...
+Unpacking libmysqlclient-dev (5.7.22-0ubuntu0.16.04.1) ...
+Selecting previously unselected package libpython2.7:amd64.
+Preparing to unpack .../libpython2.7_2.7.12-1ubuntu0~16.04.3_amd64.deb ...
+Unpacking libpython2.7:amd64 (2.7.12-1ubuntu0~16.04.3) ...
+Selecting previously unselected package libpython2.7-dev:amd64.
+Preparing to unpack .../libpython2.7-dev_2.7.12-1ubuntu0~16.04.3_amd64.deb ...
+Unpacking libpython2.7-dev:amd64 (2.7.12-1ubuntu0~16.04.3) ...
+Selecting previously unselected package libpython-dev:amd64.
+Preparing to unpack .../libpython-dev_2.7.12-1~16.04_amd64.deb ...
+Unpacking libpython-dev:amd64 (2.7.12-1~16.04) ...
+Selecting previously unselected package libssl-dev:amd64.
+Preparing to unpack .../libssl-dev_1.0.2g-1ubuntu4.13_amd64.deb ...
+Unpacking libssl-dev:amd64 (1.0.2g-1ubuntu4.13) ...
+Selecting previously unselected package libxapian22v5:amd64.
+Preparing to unpack .../libxapian22v5_1.2.22-2_amd64.deb ...
+Unpacking libxapian22v5:amd64 (1.2.22-2) ...
+Selecting previously unselected package libxml2-dev:amd64.
+Preparing to unpack .../libxml2-dev_2.9.3+dfsg1-1ubuntu0.5_amd64.deb ...
+Unpacking libxml2-dev:amd64 (2.9.3+dfsg1-1ubuntu0.5) ...
+Selecting previously unselected package libxslt1.1:amd64.
+Preparing to unpack .../libxslt1.1_1.1.28-2.1ubuntu0.1_amd64.deb ...
+Unpacking libxslt1.1:amd64 (1.1.28-2.1ubuntu0.1) ...
+Selecting previously unselected package libxslt1-dev:amd64.
+Preparing to unpack .../libxslt1-dev_1.1.28-2.1ubuntu0.1_amd64.deb ...
+Unpacking libxslt1-dev:amd64 (1.1.28-2.1ubuntu0.1) ...
+Selecting previously unselected package mysql-client-core-5.7.
+Preparing to unpack .../mysql-client-core-5.7_5.7.22-0ubuntu0.16.04.1_amd64.deb ...
+Unpacking mysql-client-core-5.7 (5.7.22-0ubuntu0.16.04.1) ...
+Selecting previously unselected package mysql-client-5.7.
+Preparing to unpack .../mysql-client-5.7_5.7.22-0ubuntu0.16.04.1_amd64.deb ...
+Unpacking mysql-client-5.7 (5.7.22-0ubuntu0.16.04.1) ...
+Selecting previously unselected package mysql-client.
+Preparing to unpack .../mysql-client_5.7.22-0ubuntu0.16.04.1_all.deb ...
+Unpacking mysql-client (5.7.22-0ubuntu0.16.04.1) ...
+Selecting previously unselected package python2.7-dev.
+Preparing to unpack .../python2.7-dev_2.7.12-1ubuntu0~16.04.3_amd64.deb ...
+Unpacking python2.7-dev (2.7.12-1ubuntu0~16.04.3) ...
+Selecting previously unselected package python-dev.
+Preparing to unpack .../python-dev_2.7.12-1~16.04_amd64.deb ...
+Unpacking python-dev (2.7.12-1~16.04) ...
+Selecting previously unselected package python-pip-whl.
+Preparing to unpack .../python-pip-whl_8.1.1-2ubuntu0.4_all.deb ...
+Unpacking python-pip-whl (8.1.1-2ubuntu0.4) ...
+Selecting previously unselected package python-pip.
+Preparing to unpack .../python-pip_8.1.1-2ubuntu0.4_all.deb ...
+Unpacking python-pip (8.1.1-2ubuntu0.4) ...
+Selecting previously unselected package python-pkg-resources.
+Preparing to unpack .../python-pkg-resources_20.7.0-1_all.deb ...
+Unpacking python-pkg-resources (20.7.0-1) ...
+Selecting previously unselected package python-setuptools.
+Preparing to unpack .../python-setuptools_20.7.0-1_all.deb ...
+Unpacking python-setuptools (20.7.0-1) ...
+Selecting previously unselected package python-xapian.
+Preparing to unpack .../python-xapian_1.2.22-2build1_amd64.deb ...
+Unpacking python-xapian (1.2.22-2build1) ...
+Selecting previously unselected package swig3.0.
+Preparing to unpack .../swig3.0_3.0.8-0ubuntu3_amd64.deb ...
+Unpacking swig3.0 (3.0.8-0ubuntu3) ...
+Selecting previously unselected package swig.
+Preparing to unpack .../swig_3.0.8-0ubuntu3_amd64.deb ...
+Unpacking swig (3.0.8-0ubuntu3) ...
+Selecting previously unselected package unzip.
+Preparing to unpack .../unzip_6.0-20ubuntu1_amd64.deb ...
+Unpacking unzip (6.0-20ubuntu1) ...
+Selecting previously unselected package xapian-tools.
+Preparing to unpack .../xapian-tools_1.2.22-2_amd64.deb ...
+Unpacking xapian-tools (1.2.22-2) ...
+Selecting previously unselected package xmlstarlet.
+Preparing to unpack .../xmlstarlet_1.6.1-1ubuntu1_amd64.deb ...
+Unpacking xmlstarlet (1.6.1-1ubuntu1) ...
+Selecting previously unselected package xsltproc.
+Preparing to unpack .../xsltproc_1.1.28-2.1ubuntu0.1_amd64.deb ...
+Unpacking xsltproc (1.1.28-2.1ubuntu0.1) ...
+Selecting previously unselected package zip.
+Preparing to unpack .../archives/zip_3.0-11_amd64.deb ...
+Unpacking zip (3.0-11) ...
+Selecting previously unselected package python-meld3.
+Preparing to unpack .../python-meld3_1.0.2-2_all.deb ...
+Unpacking python-meld3 (1.0.2-2) ...
+Selecting previously unselected package supervisor.
+Preparing to unpack .../supervisor_3.2.0-2ubuntu0.2_all.deb ...
+Unpacking supervisor (3.2.0-2ubuntu0.2) ...
+Processing triggers for libc-bin (2.23-0ubuntu10) ...
+Processing triggers for systemd (229-4ubuntu21.2) ...
+Setting up cron (3.0pl1-128ubuntu2) ...
+Adding group `crontab' (GID 106) ...
+Done.
+update-rc.d: warning: start and stop actions are no longer supported; falling back to defaults
+update-rc.d: warning: stop runlevel arguments (1) do not match cron Default-Stop values (none)
+invoke-rc.d: policy-rc.d denied execution of start.
+Setting up libgdbm3:amd64 (1.8.3-13.1) ...
+Setting up perl-modules-5.22 (5.22.1-9ubuntu0.5) ...
+Setting up libperl5.22:amd64 (5.22.1-9ubuntu0.5) ...
+Setting up perl (5.22.1-9ubuntu0.5) ...
+update-alternatives: using /usr/bin/prename to provide /usr/bin/rename (rename) in auto mode
+Setting up mime-support (3.59ubuntu1) ...
+Setting up libexpat1:amd64 (2.1.0-7ubuntu0.16.04.3) ...
+Setting up libssl1.0.0:amd64 (1.0.2g-1ubuntu4.13) ...
+Setting up libpython2.7-stdlib:amd64 (2.7.12-1ubuntu0~16.04.3) ...
+Setting up python2.7 (2.7.12-1ubuntu0~16.04.3) ...
+Setting up libpython-stdlib:amd64 (2.7.12-1~16.04) ...
+Setting up python (2.7.12-1~16.04) ...
+Setting up libmpfr4:amd64 (3.1.4-1) ...
+Setting up libmpc3:amd64 (1.0.3-1) ...
+Setting up bzip2 (1.0.6-8) ...
+Setting up libbsd0:amd64 (0.8.2-1) ...
+Setting up libedit2:amd64 (3.1-20150325-1ubuntu2) ...
+Setting up libicu55:amd64 (55.1-7ubuntu0.4) ...
+Setting up libnuma1:amd64 (2.0.11-1ubuntu1.1) ...
+Setting up libxml2:amd64 (2.9.3+dfsg1-1ubuntu0.5) ...
+Setting up openssh-client (1:7.2p2-4ubuntu2.4) ...
+Setting up binutils (2.26.1-1ubuntu1~16.04.6) ...
+Setting up libc-dev-bin (2.23-0ubuntu10) ...
+Setting up linux-libc-dev:amd64 (4.4.0-130.156) ...
+Setting up libc6-dev:amd64 (2.23-0ubuntu10) ...
+Setting up libisl15:amd64 (0.16.1-1) ...
+Setting up cpp-5 (5.4.0-6ubuntu1~16.04.10) ...
+Setting up cpp (4:5.3.1-1ubuntu1) ...
+Setting up libcc1-0:amd64 (5.4.0-6ubuntu1~16.04.10) ...
+Setting up libgomp1:amd64 (5.4.0-6ubuntu1~16.04.10) ...
+Setting up libitm1:amd64 (5.4.0-6ubuntu1~16.04.10) ...
+Setting up libatomic1:amd64 (5.4.0-6ubuntu1~16.04.10) ...
+Setting up libasan2:amd64 (5.4.0-6ubuntu1~16.04.10) ...
+Setting up liblsan0:amd64 (5.4.0-6ubuntu1~16.04.10) ...
+Setting up libtsan0:amd64 (5.4.0-6ubuntu1~16.04.10) ...
+Setting up libubsan0:amd64 (5.4.0-6ubuntu1~16.04.10) ...
+Setting up libcilkrts5:amd64 (5.4.0-6ubuntu1~16.04.10) ...
+Setting up libmpx0:amd64 (5.4.0-6ubuntu1~16.04.10) ...
+Setting up libquadmath0:amd64 (5.4.0-6ubuntu1~16.04.10) ...
+Setting up libgcc-5-dev:amd64 (5.4.0-6ubuntu1~16.04.10) ...
+Setting up gcc-5 (5.4.0-6ubuntu1~16.04.10) ...
+Setting up gcc (4:5.3.1-1ubuntu1) ...
+Setting up libstdc++-5-dev:amd64 (5.4.0-6ubuntu1~16.04.10) ...
+Setting up g++-5 (5.4.0-6ubuntu1~16.04.10) ...
+Setting up g++ (4:5.3.1-1ubuntu1) ...
+update-alternatives: using /usr/bin/g++ to provide /usr/bin/c++ (c++) in auto mode
+Setting up make (4.1-6) ...
+Setting up libdpkg-perl (1.18.4ubuntu1.4) ...
+Setting up xz-utils (5.1.1alpha+20120614-2ubuntu2) ...
+update-alternatives: using /usr/bin/xz to provide /usr/bin/lzma (lzma) in auto mode
+Setting up patch (2.7.5-1ubuntu0.16.04.1) ...
+Setting up dpkg-dev (1.18.4ubuntu1.4) ...
+Setting up build-essential (12.1ubuntu2) ...
+Setting up liberror-perl (0.17-1.2) ...
+Setting up git-man (1:2.7.4-0ubuntu1.4) ...
+Setting up git (1:2.7.4-0ubuntu1.4) ...
+Setting up icu-devtools (55.1-7ubuntu0.4) ...
+Setting up libaio1:amd64 (0.3.110-2) ...
+Setting up libexpat1-dev:amd64 (2.1.0-7ubuntu0.16.04.3) ...
+Setting up libicu-dev:amd64 (55.1-7ubuntu0.4) ...
+Setting up mysql-common (5.7.22-0ubuntu0.16.04.1) ...
+update-alternatives: using /etc/mysql/my.cnf.fallback to provide /etc/mysql/my.cnf (my.cnf) in auto mode
+Setting up libmysqlclient20:amd64 (5.7.22-0ubuntu0.16.04.1) ...
+Setting up zlib1g-dev:amd64 (1:1.2.8.dfsg-2ubuntu4.1) ...
+Setting up libmysqlclient-dev (5.7.22-0ubuntu0.16.04.1) ...
+Setting up libpython2.7:amd64 (2.7.12-1ubuntu0~16.04.3) ...
+Setting up libpython2.7-dev:amd64 (2.7.12-1ubuntu0~16.04.3) ...
+Setting up libpython-dev:amd64 (2.7.12-1~16.04) ...
+Setting up libssl-dev:amd64 (1.0.2g-1ubuntu4.13) ...
+Setting up libxapian22v5:amd64 (1.2.22-2) ...
+Setting up libxml2-dev:amd64 (2.9.3+dfsg1-1ubuntu0.5) ...
+Setting up libxslt1.1:amd64 (1.1.28-2.1ubuntu0.1) ...
+Setting up libxslt1-dev:amd64 (1.1.28-2.1ubuntu0.1) ...
+Setting up mysql-client-core-5.7 (5.7.22-0ubuntu0.16.04.1) ...
+Setting up mysql-client-5.7 (5.7.22-0ubuntu0.16.04.1) ...
+Setting up mysql-client (5.7.22-0ubuntu0.16.04.1) ...
+Setting up python2.7-dev (2.7.12-1ubuntu0~16.04.3) ...
+Setting up python-dev (2.7.12-1~16.04) ...
+Setting up python-pip-whl (8.1.1-2ubuntu0.4) ...
+Setting up python-pip (8.1.1-2ubuntu0.4) ...
+Setting up python-pkg-resources (20.7.0-1) ...
+Setting up python-setuptools (20.7.0-1) ...
+Setting up python-xapian (1.2.22-2build1) ...
+Setting up swig3.0 (3.0.8-0ubuntu3) ...
+Setting up swig (3.0.8-0ubuntu3) ...
+Setting up unzip (6.0-20ubuntu1) ...
+Setting up xapian-tools (1.2.22-2) ...
+Setting up xmlstarlet (1.6.1-1ubuntu1) ...
+Setting up xsltproc (1.1.28-2.1ubuntu0.1) ...
+Setting up zip (3.0-11) ...
+Setting up python-meld3 (1.0.2-2) ...
+Setting up supervisor (3.2.0-2ubuntu0.2) ...
+invoke-rc.d: policy-rc.d denied execution of start.
+Processing triggers for systemd (229-4ubuntu21.2) ...
+Processing triggers for libc-bin (2.23-0ubuntu10) ...
+Removing intermediate container b104a071aa6d
+ ---> ad1db4495d69
+Step 6/24 : RUN pip install -q virtualenv     MySQL-python     flup     python-memcached     python-Levenshtein     m2crypto     wheel
+ ---> Running in d4d40d18542f
+Removing intermediate container d4d40d18542f
+ ---> 160812d992ab
+Step 7/24 : RUN pip install -I pootle==$POOTLE_VERSION
+ ---> Running in 4feaf2e3e8f3
+Collecting pootle==2.7.6
+  Downloading https://files.pythonhosted.org/packages/5f/27/5111a9fd5128bc6b8d88b9caba6a1268be662adf315a54c455bb4473ba61/Pootle-2.7.6.tar.bz2 (7.0MB)
+Collecting Django<1.8,>=1.7.11 (from pootle==2.7.6)
+  Downloading https://files.pythonhosted.org/packages/cd/1a/9797706779fc77317887bcf4b12632c24aed8404b694ed1b8d1f7053c92b/Django-1.7.11-py2.py3-none-any.whl (7.4MB)
+Collecting django-allauth<=0.25.2,>=0.24.1 (from pootle==2.7.6)
+  Downloading https://files.pythonhosted.org/packages/94/81/e6314914b87409a224bcdfef55a8978b2bc19417db7e783499873a6e3634/django-allauth-0.25.2.tar.gz (408kB)
+Collecting django-assets==0.11 (from pootle==2.7.6)
+  Downloading https://files.pythonhosted.org/packages/82/7b/d3017d95974529ff7f5a9d2efd5c126ff2474517d6e1f1d0cda0c493085f/django-assets-0.11.tar.gz
+Collecting django-contact-form==1.0 (from pootle==2.7.6)
+  Downloading https://files.pythonhosted.org/packages/96/48/028ffb0301469ad8aa75794def23454456fe00857653f5263eb66ed9e507/django-contact-form-1.0.tar.gz
+Collecting django-overextends<=0.4.1,>=0.3.2 (from pootle==2.7.6)
+  Downloading https://files.pythonhosted.org/packages/62/39/f5267102d3846f21a9d8cd3b609baed66ca677881ed3d0e96504e61b356f/django_overextends-0.4.1-py2.py3-none-any.whl
+Collecting django-redis<=4.4.3 (from pootle==2.7.6)
+  Downloading https://files.pythonhosted.org/packages/3b/95/9ba8822a59390298153c810355837bc291572f6ae564e689c5fbc06b98d1/django-redis-4.4.3.tar.gz (53kB)
+Collecting django-rq<=0.9.0 (from pootle==2.7.6)
+  Downloading https://files.pythonhosted.org/packages/e7/a8/431af8bf438bf4967f8dd98bbe08ddd500543f275a86f0dfd028b158bcb4/django_rq-0.9.0-py2-none-any.whl
+Collecting django-transaction-hooks<=0.2 (from pootle==2.7.6)
+  Downloading https://files.pythonhosted.org/packages/60/f0/04ea2d937a44d94043a0ce8d4dec3328b36faa5d4b3c893478165c0aa259/django-transaction-hooks-0.2.tar.gz
+Collecting cssmin<=0.2.0 (from pootle==2.7.6)
+  Downloading https://files.pythonhosted.org/packages/8e/d8/dc9da69bb186303f7ab41adef0a5b6d34da2fdba006827620877760241c3/cssmin-0.2.0.tar.gz
+Collecting diff-match-patch==20121119 (from pootle==2.7.6)
+  Downloading https://files.pythonhosted.org/packages/22/82/46eaeab04805b4fac17630b59f30c4f2c8860988bcefd730ff4f1992908b/diff-match-patch-20121119.tar.gz (54kB)
+Collecting elasticsearch<1.7,>=1.0.0 (from pootle==2.7.6)
+  Downloading https://files.pythonhosted.org/packages/b4/5e/6e163a168b1405e307642cd81d82863bbd7ba59fcc951443865e20254baa/elasticsearch-1.6.0-py2.py3-none-any.whl (58kB)
+Collecting lxml<=3.6.0,>=2.2.0 (from pootle==2.7.6)
+  Downloading https://files.pythonhosted.org/packages/11/1b/fe6904151b37a0d6da6e60c13583945f8ce3eae8ebd0ec763ce546358947/lxml-3.6.0.tar.gz (3.7MB)
+Collecting rq<=0.5.6,>=0.5.0 (from pootle==2.7.6)
+  Downloading https://files.pythonhosted.org/packages/ee/e5/0f862d0262adab9501656601ea11cf35c109aa0ea84a31a07498f12505ec/rq-0.5.6-py2.py3-none-any.whl (47kB)
+Collecting translate-toolkit<2.0,>=1.13.0 (from pootle==2.7.6)
+  Downloading https://files.pythonhosted.org/packages/f5/dc/bc687b5af95bcbff2c32ca0d4d81016434475c9de73b409e9e0774458c25/translate-toolkit-1.13.0.tar.bz2 (4.6MB)
+Collecting python-openid>=2.2.5 (from django-allauth<=0.25.2,>=0.24.1->pootle==2.7.6)
+  Downloading https://files.pythonhosted.org/packages/7b/8a/e94d18c666073280b8c0614b7e38cfaf0b129989e42f4ca713942b862f0a/python-openid-2.2.5.tar.gz (301kB)
+Collecting requests-oauthlib>=0.3.0 (from django-allauth<=0.25.2,>=0.24.1->pootle==2.7.6)
+  Downloading https://files.pythonhosted.org/packages/94/e7/c250d122992e1561690d9c0f7856dadb79d61fd4bdd0e598087dce607f6c/requests_oauthlib-1.0.0-py2.py3-none-any.whl
+Collecting requests>=1.0.3 (from django-allauth<=0.25.2,>=0.24.1->pootle==2.7.6)
+  Downloading https://files.pythonhosted.org/packages/65/47/7e02164a2a3db50ed6d8a6ab1d6d60b69c4c3fdf57a284257925dfc12bda/requests-2.19.1-py2.py3-none-any.whl (91kB)
+Collecting webassets==0.11 (from django-assets==0.11->pootle==2.7.6)
+  Downloading https://files.pythonhosted.org/packages/25/a2/4012503ae0e589b6796fe586d9d621eea6b5ee14a1de8756f85af36c4ba4/webassets-0.11.tar.gz (170kB)
+Collecting sphinx-me>=0.1.2 (from django-overextends<=0.4.1,>=0.3.2->pootle==2.7.6)
+  Downloading https://files.pythonhosted.org/packages/d0/54/19bc2492a652450bad1faa1de5f4d722bd6965ab2ad5f2c5f3ef9304a930/sphinx_me-0.3-py2.py3-none-any.whl
+Collecting redis>=2.10.0 (from django-redis<=4.4.3->pootle==2.7.6)
+  Downloading https://files.pythonhosted.org/packages/3b/f6/7a76333cf0b9251ecf49efff635015171843d9b977e4ffcf59f9c4428052/redis-2.10.6-py2.py3-none-any.whl (64kB)
+Collecting urllib3<2.0,>=1.8 (from elasticsearch<1.7,>=1.0.0->pootle==2.7.6)
+  Downloading https://files.pythonhosted.org/packages/bd/c9/6fdd990019071a4a32a5e7cb78a1d92c53851ef4f56f62a3486e6a7d8ffb/urllib3-1.23-py2.py3-none-any.whl (133kB)
+Collecting click>=3.0 (from rq<=0.5.6,>=0.5.0->pootle==2.7.6)
+  Downloading https://files.pythonhosted.org/packages/34/c1/8806f99713ddb993c5366c362b2f908f18269f8d792aff1abfd700775a77/click-6.7-py2.py3-none-any.whl (71kB)
+Collecting argparse (from translate-toolkit<2.0,>=1.13.0->pootle==2.7.6)
+  Downloading https://files.pythonhosted.org/packages/f2/94/3af39d34be01a24a6e65433d19e107099374224905f1e0cc6bbe1fd22a2f/argparse-1.4.0-py2.py3-none-any.whl
+Collecting six (from translate-toolkit<2.0,>=1.13.0->pootle==2.7.6)
+  Using cached https://files.pythonhosted.org/packages/67/4b/141a581104b1f6397bfa78ac9d43d8ad29a7ca43ea90a2d863fe3056e86a/six-1.11.0-py2.py3-none-any.whl
+Collecting oauthlib>=0.6.2 (from requests-oauthlib>=0.3.0->django-allauth<=0.25.2,>=0.24.1->pootle==2.7.6)
+  Downloading https://files.pythonhosted.org/packages/e6/d1/ddd9cfea3e736399b97ded5c2dd62d1322adef4a72d816f1ed1049d6a179/oauthlib-2.1.0-py2.py3-none-any.whl (121kB)
+Collecting certifi>=2017.4.17 (from requests>=1.0.3->django-allauth<=0.25.2,>=0.24.1->pootle==2.7.6)
+  Downloading https://files.pythonhosted.org/packages/7c/e6/92ad559b7192d846975fc916b65f667c7b8c3a32bea7372340bfe9a15fa5/certifi-2018.4.16-py2.py3-none-any.whl (150kB)
+Collecting chardet<3.1.0,>=3.0.2 (from requests>=1.0.3->django-allauth<=0.25.2,>=0.24.1->pootle==2.7.6)
+  Downloading https://files.pythonhosted.org/packages/bc/a9/01ffebfb562e4274b6487b4bb1ddec7ca55ec7510b22e4c51f14098443b8/chardet-3.0.4-py2.py3-none-any.whl (133kB)
+Collecting idna<2.8,>=2.5 (from requests>=1.0.3->django-allauth<=0.25.2,>=0.24.1->pootle==2.7.6)
+  Downloading https://files.pythonhosted.org/packages/4b/2a/0276479a4b3caeb8a8c1af2f8e4355746a97fab05a372e4a2c6a6b876165/idna-2.7-py2.py3-none-any.whl (58kB)
+Building wheels for collected packages: pootle, django-allauth, django-assets, django-contact-form, django-redis, django-transaction-hooks, cssmin, diff-match-patch, lxml, translate-toolkit, python-openid, webassets
+  Running setup.py bdist_wheel for pootle: started
+  Running setup.py bdist_wheel for pootle: finished with status 'done'
+  Stored in directory: /root/.cache/pip/wheels/b1/58/5a/28be14b6d505e8f85cea461ae9ee67d58ee183c16b58f3b8d1
+  Running setup.py bdist_wheel for django-allauth: started
+  Running setup.py bdist_wheel for django-allauth: finished with status 'done'
+  Stored in directory: /root/.cache/pip/wheels/a1/0d/7b/13b3ba655ad9845aab4a892351b4e6cacc754d7c77a11a1c77
+  Running setup.py bdist_wheel for django-assets: started
+  Running setup.py bdist_wheel for django-assets: finished with status 'done'
+  Stored in directory: /root/.cache/pip/wheels/5e/29/32/37756a9398441be99f7bd2c07d4f0c4d26bc87bf18ca3d73d9
+  Running setup.py bdist_wheel for django-contact-form: started
+  Running setup.py bdist_wheel for django-contact-form: finished with status 'done'
+  Stored in directory: /root/.cache/pip/wheels/de/8c/09/f481d92e4bfcd2bac0d070849ac0aa22c0b4eaecfddac01b67
+  Running setup.py bdist_wheel for django-redis: started
+  Running setup.py bdist_wheel for django-redis: finished with status 'done'
+  Stored in directory: /root/.cache/pip/wheels/ad/8c/23/28fb90dce84dfc6a5c82eab4157cf262759460c2d2944e5c17
+  Running setup.py bdist_wheel for django-transaction-hooks: started
+  Running setup.py bdist_wheel for django-transaction-hooks: finished with status 'done'
+  Stored in directory: /root/.cache/pip/wheels/7a/d5/89/66938a6c7da0daa2114cb14e3ba9e14dbd74de2210865a1c8a
+  Running setup.py bdist_wheel for cssmin: started
+  Running setup.py bdist_wheel for cssmin: finished with status 'done'
+  Stored in directory: /root/.cache/pip/wheels/56/05/1e/ed779e049cd9909638d3973adb86f928ba1f6025118bd1a13e
+  Running setup.py bdist_wheel for diff-match-patch: started
+  Running setup.py bdist_wheel for diff-match-patch: finished with status 'done'
+  Stored in directory: /root/.cache/pip/wheels/f2/72/a3/8c2adafbe9afc22a1e65cfc412982e0061199c0092b1be11d9
+  Running setup.py bdist_wheel for lxml: started
+  Running setup.py bdist_wheel for lxml: still running...
+  Running setup.py bdist_wheel for lxml: finished with status 'done'
+  Stored in directory: /root/.cache/pip/wheels/b4/b8/82/0142b243079e93a9449499c4eca5e218d83b8927409b4351cb
+  Running setup.py bdist_wheel for translate-toolkit: started
+  Running setup.py bdist_wheel for translate-toolkit: finished with status 'done'
+  Stored in directory: /root/.cache/pip/wheels/96/e2/16/ca9824d2bdb89822b43487cc7b643160bdf86b063235b51d4e
+  Running setup.py bdist_wheel for python-openid: started
+  Running setup.py bdist_wheel for python-openid: finished with status 'done'
+  Stored in directory: /root/.cache/pip/wheels/89/2a/a5/9efdd8de9a8f3d5bb0c13378f36fcaba544ae2a056c0d9dc37
+  Running setup.py bdist_wheel for webassets: started
+  Running setup.py bdist_wheel for webassets: finished with status 'done'
+  Stored in directory: /root/.cache/pip/wheels/55/65/b9/67138b344b4ca8e7b81025ce1428121eea4eddf43f3e508ede
+Successfully built pootle django-allauth django-assets django-contact-form django-redis django-transaction-hooks cssmin diff-match-patch lxml translate-toolkit python-openid webassets
+Installing collected packages: Django, python-openid, oauthlib, certifi, chardet, urllib3, idna, requests, requests-oauthlib, django-allauth, webassets, django-assets, django-contact-form, sphinx-me, django-overextends, redis, django-redis, click, rq, django-rq, django-transaction-hooks, cssmin, diff-match-patch, elasticsearch, lxml, argparse, six, translate-toolkit, pootle
+Successfully installed Django-1.7.11 argparse-1.2.1 certifi-2018.4.16 chardet-3.0.4 click-6.7 cssmin-0.2.0 diff-match-patch-20121119 django-allauth-0.25.2 django-assets-0.11 django-contact-form-1.0 django-overextends-0.4.1 django-redis-4.4.3 django-rq-0.9.0 django-transaction-hooks-0.2 elasticsearch-1.6.0 idna-2.7 lxml-3.6.0 oauthlib-2.1.0 pootle-2.7.6 python-openid-2.2.5 redis-2.10.6 requests-2.19.1 requests-oauthlib-1.0.0 rq-0.5.6 six-1.11.0 sphinx-me-0.3 translate-toolkit-1.13.0 urllib3-1.23 webassets-0.11
+You are using pip version 8.1.1, however version 10.0.1 is available.
+You should consider upgrading via the 'pip install --upgrade pip' command.
+Removing intermediate container 4feaf2e3e8f3
+ ---> 3da9bd45908e
+Step 8/24 : COPY pootle.conf /root/.pootle/pootle.conf
+ ---> bc204005cae2
+Step 9/24 : RUN mkdir -p /srv/pootle/po/.tmp
+ ---> Running in b3bf9f33ccb4
+Removing intermediate container b3bf9f33ccb4
+ ---> 73d77a00a72c
+Step 10/24 : RUN ln -s /usr/lib/python2.7/dist-packages/xapian /usr/local/lib/python2.7/dist-packages/xapian
+ ---> Running in f3c165984493
+Removing intermediate container f3c165984493
+ ---> 9f0a33208605
+Step 11/24 : COPY pootle.sh /etc/profile.d/pootle.sh
+ ---> c07198eedac0
+Step 12/24 : RUN /etc/profile.d/pootle.sh
+ ---> Running in 60ad4edea348
+Removing intermediate container 60ad4edea348
+ ---> e925aee74210
+Step 13/24 : COPY scripts /home/pootle/scripts
+ ---> db9ad60ee785
+Step 14/24 : COPY templates /home/pootle/templates
+ ---> 6e553cf10e13
+Step 15/24 : COPY frontend /usr/local/lib/python2.7/dist-packages/pootle/static
+ ---> 048d7efc24dc
+Step 16/24 : COPY typo3.cron /etc/cron.d/typo3
+ ---> 8d3b4b5f87be
+Step 17/24 : RUN cp -R /usr/lib/python2.7/dist-packages/xapian /usr/local/lib/python2.7/dist-packages/pootle/assets
+ ---> Running in 21b1fdd46163
+Removing intermediate container 21b1fdd46163
+ ---> ed9b618582b5
+Step 18/24 : RUN pootle collectstatic --noinput --clear
+ ---> Running in 29f0ddd50fe6
+2018-07-07 15:41:45,005 INFO Loading custom settings from '/root/.pootle/pootle.conf'...
+2018-07-07 15:41:45,290 INFO Using Python PO
+Deleting 'favicon.ico'
+Deleting 'xapian/_xapian.so'
+Deleting 'xapian/__init__.pyc'
+Deleting 'xapian/__init__.py'
+Deleting 'css/auth.css'
+Deleting 'css/error.css'
+Deleting 'css/user.css'
+Deleting 'css/navbar.css'
+Deleting 'css/style.css'
+Deleting 'css/actions.css'
+Deleting 'css/sprite.css'
+Deleting 'css/editor.css'
+Deleting 'css/select2.css'
+Deleting 'css/select2-pootle.css'
+Deleting 'css/odometer.css'
+Deleting 'css/tipsy.css'
+Deleting 'css/reports.css'
+Deleting 'css/admin.css'
+Deleting 'css/editor.min.7042d9ed.css'
+Deleting 'css/buttons.css'
+Deleting 'css/react-select.css'
+Deleting 'css/breadcrumbs.css'
+Deleting 'css/reports.min.css'
+Deleting 'css/admin.min.523f986b.css'
+Deleting 'css/magnific-popup.css'
+Deleting 'css/scores.css'
+Deleting 'css/contact.css'
+Deleting 'css/popup.css'
+Deleting 'css/welcome.css'
+Deleting 'css/common.min.262ab62f.css'
+Deleting 'images/select2x2.png'
+Deleting 'images/bg.png'
+Deleting 'images/select2-spinner.gif'
+Deleting 'images/menu_white.png'
+Deleting 'images/blank.gif'
+Deleting 'images/sprite.png'
+Deleting 'images/app-32x32.png'
+Deleting 'images/select2.png'
+Deleting 'images/squiggle.png'
+Deleting 'images/app-64x64.png'
+Deleting 'images/sprite/icon-ascdesc.gif'
+Deleting 'images/sprite/icon-search.png'
+Deleting 'images/sprite/icon-web-translate.png'
+Deleting 'images/sprite/icon-reject.png'
+Deleting 'images/sprite/icon-arrow-down.png'
+Deleting 'images/sprite/icon-raw-mode.png'
+Deleting 'images/sprite/icon-arrow-up.png'
+Deleting 'images/sprite/icon-error.png'
+Deleting 'images/sprite/icon-folder-parent.png'
+Deleting 'images/sprite/icon-tick.png'
+Deleting 'images/sprite/icon-expand-stats.png'
+Deleting 'images/sprite/icon-external-link.png'
+Deleting 'images/sprite/icon-user-linkedin.png'
+Deleting 'images/sprite/icon-google-translate.png'
+Deleting 'images/sprite/icon-block-muted.png'
+Deleting 'images/sprite/icon-user-website.png'
+Deleting 'images/sprite/icon-logo.png'
+Deleting 'images/sprite/icon-user-twitter.png'
+Deleting 'images/sprite/icon-information.png'
+Deleting 'images/sprite/icon-project.png'
+Deleting 'images/sprite/icon-comment-user.png'
+Deleting 'images/sprite/icon-collapse-stats.png'
+Deleting 'images/sprite/icon-asc.gif'
+Deleting 'images/sprite/icon-language.png'
+Deleting 'images/sprite/icon-file.png'
+Deleting 'images/sprite/icon-accept.png'
+Deleting 'images/sprite/icon-warning.png'
+Deleting 'images/sprite/icon-upload.png'
+Deleting 'images/sprite/icon-folder.png'
+Deleting 'images/sprite/icon-vfolder.png'
+Deleting 'images/sprite/icon-comment-add.png'
+Deleting 'images/sprite/icon-block.png'
+Deleting 'images/sprite/icon-yandex-translate.png'
+Deleting 'images/sprite/icon-back.png'
+Deleting 'images/sprite/icon-desc.gif'
+Deleting 'images/sprite/icon-timeline.png'
+Deleting 'images/sprite/icon-download.png'
+Deleting 'images/sprite/icon-copy.png'
+Deleting '.webassets-cache/a84f0decc828631703a3d1c04ec74c2f'
+Deleting '.webassets-cache/a45e6dee446b93e6e0a05bd3dceaa340'
+Deleting '.webassets-cache/02d51bd8ec29758901750dc92c8c6d4c'
+Deleting '.webassets-cache/8d93d66bbec01d7ca914d19c2b0b11d4'
+Deleting '.webassets-cache/2a7dd702a163bbd0f50cdcc18808a514'
+Deleting '.webassets-cache/b49227b26e2217d63f7ce12906311001'
+Deleting '.webassets-cache/33e4edfd1db28c794f8a4cbcbcde9d44'
+Deleting '.webassets-cache/c2e4b201fb73931cb5aa94f358ad0479'
+Deleting '.webassets-cache/21fef948ce353107d39f1e60cde00137'
+Deleting '.webassets-cache/6b06feffb89ec66204b05d867d4f0769'
+Deleting '.webassets-cache/04a3150bbf859ef2e65db37d47bfd324'
+Deleting '.webassets-cache/438d4267d8a8b4a1dd2b5c96c29c21c1'
+Deleting '.webassets-cache/ed258916d0558e9d143c6df28c0f9f75'
+Deleting '.webassets-cache/b0eb26a51d24db29f80a847ac010026b'
+Deleting '.webassets-cache/02d2f7e3fd4f31f7a73a881daefacd04'
+Deleting '.webassets-cache/35324cb1cc01359918032edfae00d983'
+Deleting '.webassets-cache/8c6154062679f58451a4b24098623f5c'
+Deleting '.webassets-cache/358add04a9f0ec8c4e7b18d70a06bd9f'
+Deleting '.webassets-cache/e449ab3367c29b28686abd178402b441'
+Deleting '.webassets-cache/effc6787a6585136dd1c93f403a9c6c0'
+Deleting '.webassets-cache/6d5e8ce7956a2c7117e115d238685d1e'
+Deleting '.webassets-cache/529b9c04c18cd0d61fa6fa64c812890a'
+Deleting '.webassets-cache/c08e1c88fe4afc78c63cb1029dacffd3'
+Deleting '.webassets-cache/36a4c3bf2ceea586413ee00b5c80bd4c'
+Deleting '.webassets-cache/de9f13fa967b591e6ac90d469acdaafe'
+Deleting '.webassets-cache/3a1dbf4d44865e534d35f05ff1006fa9'
+Deleting '.webassets-cache/87ac7aa717c4fb9941599ddfde9cf5cf'
+Deleting 'js/score.js'
+Deleting 'js/msg.js'
+Deleting 'js/collections.js'
+Deleting 'js/vendor.bundle.js'
+Deleting 'js/contact.js'
+Deleting 'js/utils.js'
+Deleting 'js/search.js'
+Deleting 'js/vendor.min.62a362b8.js'
+Deleting 'js/webpack.config.js'
+Deleting 'js/README'
+Deleting 'js/reports.min.js'
+Deleting 'js/helpers.js'
+Deleting 'js/agreement.js'
+Deleting 'js/package.json'
+Deleting 'js/common.js'
+Deleting 'js/captcha.js'
+Deleting 'js/store.js'
+Deleting 'js/dropdown.js'
+Deleting 'js/reducers.js'
+Deleting 'js/browser.js'
+Deleting 'js/models.js'
+Deleting 'js/stats.js'
+Deleting 'js/shared/mixins/admin_api.js'
+Deleting 'js/shared/mixins/layers.js'
+Deleting 'js/shared/mixins/backbone.js'
+Deleting 'js/shared/components/LastUpdate.js'
+Deleting 'js/shared/components/UserEvent.js'
+Deleting 'js/shared/components/lightbox.css'
+Deleting 'js/shared/components/CodeMirror.js'
+Deleting 'js/shared/components/TimeSince.js'
+Deleting 'js/shared/components/CodeMirror.css'
+Deleting 'js/shared/components/Avatar.js'
+Deleting 'js/shared/models/user.js'
+Deleting 'js/shared/models/language.js'
+Deleting 'js/shared/models/project.js'
+Deleting 'js/shared/utils/linkHashtags.js'
+Deleting 'js/shared/utils/diff.js'
+Deleting 'js/shared/utils/markup.js'
+Deleting 'js/shared/utils/fetch.js'
+Deleting 'js/shared/utils/dimensions.js'
+Deleting 'js/shared/utils/cookie.js'
+Deleting 'js/shared/api/StatsAPI.js'
+Deleting 'js/shared/api/UnitAPI.js'
+Deleting 'js/reports/app.bundle.js'
+Deleting 'js/reports/app.js'
+Deleting 'js/admin/app.bundle.js'
+Deleting 'js/admin/app.min.d721baa4.js'
+Deleting 'js/admin/AdminRouter.js'
+Deleting 'js/admin/app.js'
+Deleting 'js/admin/components/ItemTable.js'
+Deleting 'js/admin/components/ItemDelete.js'
+Deleting 'js/admin/components/AdminController.js'
+Deleting 'js/admin/components/Search.js'
+Deleting 'js/admin/components/User/UserController.js'
+Deleting 'js/admin/components/User/UserAdd.js'
+Deleting 'js/admin/components/User/index.js'
+Deleting 'js/admin/components/User/UserEdit.js'
+Deleting 'js/admin/components/User/UserForm.js'
+Deleting 'js/admin/components/Language/LanguageForm.js'
+Deleting 'js/admin/components/Language/LanguageAdd.js'
+Deleting 'js/admin/components/Language/index.js'
+Deleting 'js/admin/components/Language/LanguageController.js'
+Deleting 'js/admin/components/Language/LanguageEdit.js'
+Deleting 'js/admin/components/Project/ProjectForm.js'
+Deleting 'js/admin/components/Project/ProjectEdit.js'
+Deleting 'js/admin/components/Project/ProjectAdd.js'
+Deleting 'js/admin/components/Project/ProjectController.js'
+Deleting 'js/admin/components/Project/index.js'
+Deleting 'js/admin/general/app.bundle.js'
+Deleting 'js/admin/general/permissions.js'
+Deleting 'js/admin/general/dashboard.js'
+Deleting 'js/admin/general/app.js'
+Deleting 'js/admin/general/staticpages.js'
+Deleting 'js/admin/general/app.min.331b92fe.js'
+Deleting 'js/admin/general/components/LiveEditor.css'
+Deleting 'js/admin/general/components/ContentEditor.js'
+Deleting 'js/admin/general/components/ContentPreview.js'
+Deleting 'js/admin/general/components/LiveEditor.js'
+Deleting 'js/editor/app.bundle.js'
+Deleting 'js/editor/utils.js'
+Deleting 'js/editor/app.min.7d63089f.js'
+Deleting 'js/editor/app.js'
+Deleting 'js/editor/mt/PlaceholderCleaner.js'
+Deleting 'js/editor/mt/MTProvider.js'
+Deleting 'js/editor/mt/providers/GoogleTranslate.js'
+Deleting 'js/editor/mt/providers/YandexTranslate.js'
+Deleting 'js/auth/actions.js'
+Deleting 'js/auth/index.js'
+Deleting 'js/auth/reducers.js'
+Deleting 'js/auth/components/AuthWindow.js'
+Deleting 'js/auth/components/EmailConfirmation.js'
+Deleting 'js/auth/components/AccountActivation.js'
+Deleting 'js/auth/components/SignInPanel.js'
+Deleting 'js/auth/components/RequestPasswordResetForm.js'
+Deleting 'js/auth/components/AuthProgress.js'
+Deleting 'js/auth/components/SignUpForm.js'
+Deleting 'js/auth/components/RequestPasswordResetSent.js'
+Deleting 'js/auth/components/SocialSignInForm.js'
+Deleting 'js/auth/components/SocialVerification.js'
+Deleting 'js/auth/components/RequestPasswordResetProgress.js'
+Deleting 'js/auth/components/AuthContent.js'
+Deleting 'js/auth/components/SocialAuthError.js'
+Deleting 'js/auth/components/SignInForm.js'
+Deleting 'js/auth/components/PasswordResetForm.js'
+Deleting 'js/auth/components/AccountInactive.js'
+Deleting 'js/auth/utils/AuthAPI.js'
+Deleting 'js/auth/containers/Auth.js'
+Deleting 'js/3../3/app.bundle.js'
+Deleting 'js/vendor/moment.js'
+Deleting 'js/vendor/sorttable.js'
+Deleting 'js/vendor/spin.js'
+Deleting 'js/vendor/levenshtein.js'
+Deleting 'js/vendor/odometer.js'
+Deleting 'js/vendor/underscore.js'
+Deleting 'js/vendor/shortcut.js'
+Deleting 'js/vendor/jquery/jquery.utils.js'
+Deleting 'js/vendor/jquery/jquery.serializeObject.js'
+Deleting 'js/vendor/jquery/jquery.highlightRegex.js'
+Deleting 'js/vendor/jquery/jquery.magnific-popup.js'
+Deleting 'js/vendor/jquery/jquery.history.js'
+Deleting 'js/vendor/jquery/jquery.js'
+Deleting 'js/vendor/jquery/jquery.caret.js'
+Deleting 'js/vendor/jquery/jquery.select2.js'
+Deleting 'js/vendor/jquery/jquery.flot.stack.js'
+Deleting 'js/vendor/jquery/jquery.flot.js'
+Deleting 'js/vendor/jquery/jquery.flot.marks.js'
+Deleting 'js/vendor/jquery/jquery.bidi.js'
+Deleting 'js/vendor/jquery/jquery.easing.js'
+Deleting 'js/vendor/jquery/jquery.jsonp.js'
+Deleting 'js/vendor/jquery/jquery.tipsy.js'
+Deleting 'js/vendor/jquery/jquery.flot.time.js'
+Deleting 'js/vendor/backbone/backbone.queryparams-1.1-shim.js'
+Deleting 'js/vendor/backbone/backbone.safesync.js'
+Deleting 'js/vendor/backbone/backbone.move.js'
+Deleting 'js/vendor/backbone/backbone.queryparams.js'
+Deleting 'js/vendor/backbone/backbone-relational.js'
+Deleting 'js/vendor/backbone/backbone.js'
+Deleting 'js/4../4/app.bundle.js'
+Deleting 'js/common/app.bundle.js'
+Deleting 'js/common/app.min.deaf8619.js'
+Deleting 'js/user/app.bundle.js'
+Deleting 'js/user/app.min.965a47c5.js'
+Deleting 'js/user/app.js'
+Deleting 'js/user/routers.js'
+Deleting 'js/user/components/UserProfileEdit.js'
+Deleting 'js/2../2/app.bundle.js'
+Deleting 'js/5../5/app.bundle.js'
+Deleting 'js/1../1/app.bundle.js'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/favicon.ico'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/css/auth.css'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/css/error.css'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/css/user.css'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/css/navbar.css'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/css/style.css'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/css/actions.css'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/css/sprite.css'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/css/editor.css'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/css/select2.css'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/css/select2-pootle.css'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/css/odometer.css'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/css/tipsy.css'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/css/reports.css'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/css/admin.css'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/css/buttons.css'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/css/react-select.css'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/css/breadcrumbs.css'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/css/magnific-popup.css'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/css/scores.css'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/css/contact.css'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/css/popup.css'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/css/welcome.css'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/images/select2x2.png'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/images/bg.png'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/images/select2-spinner.gif'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/images/menu_white.png'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/images/blank.gif'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/images/sprite.png'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/images/app-32x32.png'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/images/select2.png'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/images/squiggle.png'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/images/app-64x64.png'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/images/sprite/icon-ascdesc.gif'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/images/sprite/icon-search.png'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/images/sprite/icon-web-translate.png'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/images/sprite/icon-reject.png'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/images/sprite/icon-arrow-down.png'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/images/sprite/icon-raw-mode.png'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/images/sprite/icon-arrow-up.png'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/images/sprite/icon-error.png'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/images/sprite/icon-folder-parent.png'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/images/sprite/icon-tick.png'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/images/sprite/icon-expand-stats.png'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/images/sprite/icon-external-link.png'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/images/sprite/icon-user-linkedin.png'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/images/sprite/icon-google-translate.png'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/images/sprite/icon-block-muted.png'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/images/sprite/icon-user-website.png'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/images/sprite/icon-logo.png'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/images/sprite/icon-user-twitter.png'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/images/sprite/icon-information.png'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/images/sprite/icon-project.png'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/images/sprite/icon-comment-user.png'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/images/sprite/icon-collapse-stats.png'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/images/sprite/icon-asc.gif'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/images/sprite/icon-language.png'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/images/sprite/icon-file.png'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/images/sprite/icon-accept.png'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/images/sprite/icon-warning.png'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/images/sprite/icon-upload.png'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/images/sprite/icon-folder.png'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/images/sprite/icon-vfolder.png'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/images/sprite/icon-comment-add.png'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/images/sprite/icon-block.png'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/images/sprite/icon-yandex-translate.png'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/images/sprite/icon-back.png'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/images/sprite/icon-desc.gif'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/images/sprite/icon-timeline.png'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/images/sprite/icon-download.png'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/images/sprite/icon-copy.png'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/js/score.js'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/js/msg.js'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/js/collections.js'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/js/vendor.bundle.js'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/js/contact.js'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/js/utils.js'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/js/search.js'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/js/webpack.config.js'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/js/README'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/js/helpers.js'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/js/agreement.js'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/js/package.json'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/js/common.js'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/js/captcha.js'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/js/store.js'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/js/dropdown.js'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/js/reducers.js'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/js/browser.js'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/js/models.js'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/js/stats.js'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/js/shared/mixins/forms.jsx'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/js/shared/mixins/admin_api.js'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/js/shared/mixins/layers.js'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/js/shared/mixins/backbone.js'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/js/shared/components/LastUpdate.js'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/js/shared/components/forms.jsx'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/js/shared/components/UserEvent.js'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/js/shared/components/lightbox.css'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/js/shared/components/CodeMirror.js'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/js/shared/components/Tabs.jsx'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/js/shared/components/TimeSince.js'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/js/shared/components/CodeMirror.css'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/js/shared/components/lightbox.jsx'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/js/shared/components/Avatar.js'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/js/shared/models/user.js'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/js/shared/models/language.js'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/js/shared/models/project.js'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/js/shared/utils/linkHashtags.js'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/js/shared/utils/diff.js'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/js/shared/utils/markup.js'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/js/shared/utils/fetch.js'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/js/shared/utils/dimensions.js'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/js/shared/utils/cookie.js'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/js/shared/api/StatsAPI.js'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/js/shared/api/UnitAPI.js'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/js/reports/app.bundle.js'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/js/reports/app.js'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/js/admin/app.bundle.js'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/js/admin/AdminRouter.js'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/js/admin/app.js'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/js/admin/components/ItemTable.js'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/js/admin/components/ItemDelete.js'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/js/admin/components/AdminController.js'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/js/admin/components/Search.js'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/js/admin/components/User/UserController.js'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/js/admin/components/User/UserAdd.js'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/js/admin/components/User/index.js'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/js/admin/components/User/UserEdit.js'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/js/admin/components/User/UserForm.js'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/js/admin/components/Language/LanguageForm.js'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/js/admin/components/Language/LanguageAdd.js'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/js/admin/components/Language/index.js'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/js/admin/components/Language/LanguageController.js'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/js/admin/components/Language/LanguageEdit.js'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/js/admin/components/Project/ProjectForm.js'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/js/admin/components/Project/ProjectEdit.js'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/js/admin/components/Project/ProjectAdd.js'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/js/admin/components/Project/ProjectController.js'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/js/admin/components/Project/index.js'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/js/admin/general/app.bundle.js'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/js/admin/general/permissions.js'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/js/admin/general/dashboard.js'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/js/admin/general/app.js'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/js/admin/general/staticpages.js'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/js/admin/general/components/LiveEditor.css'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/js/admin/general/components/ContentEditor.js'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/js/admin/general/components/ContentPreview.js'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/js/admin/general/components/LiveEditor.js'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/js/editor/app.bundle.js'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/js/editor/utils.js'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/js/editor/app.js'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/js/editor/mt/PlaceholderCleaner.js'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/js/editor/mt/MTProvider.js'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/js/editor/mt/providers/GoogleTranslate.js'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/js/editor/mt/providers/YandexTranslate.js'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/js/auth/actions.js'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/js/auth/index.js'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/js/auth/reducers.js'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/js/auth/components/AuthWindow.js'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/js/auth/components/EmailConfirmation.js'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/js/auth/components/AccountActivation.js'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/js/auth/components/SignInPanel.js'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/js/auth/components/RequestPasswordResetForm.js'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/js/auth/components/AuthProgress.js'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/js/auth/components/SignUpForm.js'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/js/auth/components/RequestPasswordResetSent.js'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/js/auth/components/SocialSignInForm.js'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/js/auth/components/SocialVerification.js'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/js/auth/components/RequestPasswordResetProgress.js'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/js/auth/components/AuthContent.js'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/js/auth/components/SocialAuthError.js'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/js/auth/components/SignInForm.js'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/js/auth/components/PasswordResetForm.js'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/js/auth/components/AccountInactive.js'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/js/auth/utils/AuthAPI.js'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/js/auth/containers/Auth.js'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/js/3../3/app.bundle.js'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/js/vendor/moment.js'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/js/vendor/sorttable.js'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/js/vendor/spin.js'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/js/vendor/levenshtein.js'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/js/vendor/odometer.js'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/js/vendor/underscore.js'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/js/vendor/shortcut.js'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/js/vendor/jquery/jquery.utils.js'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/js/vendor/jquery/jquery.serializeObject.js'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/js/vendor/jquery/jquery.highlightRegex.js'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/js/vendor/jquery/jquery.magnific-popup.js'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/js/vendor/jquery/jquery.history.js'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/js/vendor/jquery/jquery.js'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/js/vendor/jquery/jquery.caret.js'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/js/vendor/jquery/jquery.select2.js'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/js/vendor/jquery/jquery.flot.stack.js'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/js/vendor/jquery/jquery.flot.js'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/js/vendor/jquery/jquery.flot.marks.js'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/js/vendor/jquery/jquery.bidi.js'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/js/vendor/jquery/jquery.easing.js'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/js/vendor/jquery/jquery.jsonp.js'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/js/vendor/jquery/jquery.tipsy.js'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/js/vendor/jquery/jquery.flot.time.js'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/js/vendor/backbone/backbone.queryparams-1.1-shim.js'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/js/vendor/backbone/backbone.safesync.js'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/js/vendor/backbone/backbone.move.js'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/js/vendor/backbone/backbone.queryparams.js'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/js/vendor/backbone/backbone-relational.js'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/js/vendor/backbone/backbone.js'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/js/4../4/app.bundle.js'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/js/common/app.bundle.js'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/js/user/app.bundle.js'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/js/user/forms.jsx'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/js/user/app.js'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/js/user/routers.js'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/js/user/components/UserProfileEdit.js'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/js/2../2/app.bundle.js'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/js/5../5/app.bundle.js'
+Copying '/usr/local/lib/python2.7/dist-packages/pootle/static/js/1../1/app.bundle.js'
+
+217 static files copied to '/usr/local/lib/python2.7/dist-packages/pootle/assets'.
+Removing intermediate container 29f0ddd50fe6
+ ---> ffd20ef0397e
+Step 19/24 : RUN pootle assets build
+ ---> Running in 1acc954d87b8
+2018-07-07 15:41:47,857 INFO Loading custom settings from '/root/.pootle/pootle.conf'...
+2018-07-07 15:41:48,127 INFO Using Python PO
+Building bundle: css/common.min.%(version)s.css
+2018-07-07 15:41:48,177 INFO Building bundle: css/common.min.%(version)s.css
+Building bundle: js/editor/app.min.%(version)s.js
+2018-07-07 15:41:48,369 INFO Building bundle: js/editor/app.min.%(version)s.js
+Building bundle: js/reports.min.js
+2018-07-07 15:41:48,371 INFO Building bundle: js/reports.min.js
+Building bundle: js/admin/general/app.min.%(version)s.js
+2018-07-07 15:41:48,381 INFO Building bundle: js/admin/general/app.min.%(version)s.js
+Building bundle: css/editor.min.%(version)s.css
+2018-07-07 15:41:48,384 INFO Building bundle: css/editor.min.%(version)s.css
+Building bundle: js/common/app.min.%(version)s.js
+2018-07-07 15:41:48,404 INFO Building bundle: js/common/app.min.%(version)s.js
+Building bundle: js/vendor.min.%(version)s.js
+2018-07-07 15:41:48,407 INFO Building bundle: js/vendor.min.%(version)s.js
+Building bundle: js/admin/app.min.%(version)s.js
+2018-07-07 15:41:48,410 INFO Building bundle: js/admin/app.min.%(version)s.js
+Building bundle: css/reports.min.css
+2018-07-07 15:41:48,411 INFO Building bundle: css/reports.min.css
+Building bundle: css/admin.min.%(version)s.css
+2018-07-07 15:41:48,423 INFO Building bundle: css/admin.min.%(version)s.css
+Building bundle: js/user/app.min.%(version)s.js
+2018-07-07 15:41:48,444 INFO Building bundle: js/user/app.min.%(version)s.js
+Removing intermediate container 1acc954d87b8
+ ---> e32326818481
+Step 20/24 : WORKDIR /home/pootle
+Removing intermediate container 22dec04e935f
+ ---> b10f86f34b73
+Step 21/24 : EXPOSE 8080
+ ---> Running in 475fc09392b6
+Removing intermediate container 475fc09392b6
+ ---> aef4d6d922b5
+Step 22/24 : VOLUME ["/usr/local/lib/python2.7/dist-packages/pootle"]
+ ---> Running in e745e4b935aa
+Removing intermediate container e745e4b935aa
+ ---> a1d4d07c72aa
+Step 23/24 : COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+ ---> 3bc9ec6ae488
+Step 24/24 : CMD ["/usr/bin/supervisord"]
+ ---> Running in 3c29265924b1
+Removing intermediate container 3c29265924b1
+ ---> 478bc2f7f22c
+Successfully built 478bc2f7f22c
+Successfully tagged pootle_pootle:latest
+WARNING: Image for service pootle was built because it did not already exist. To rebuild this image you must use `docker-compose build` or `docker-compose up --build`.
+Building nginx
+Step 1/2 : FROM nginx:1.11-alpine
+1.11-alpine: Pulling from library/nginx
+709515475419: Pull complete
+4b21d71b440a: Pull complete
+c92260fe6357: Pull complete
+ed383a1b82df: Pull complete
+Digest: sha256:5aadb68304a38a8e2719605e4e180413f390cd6647602bee9bdedd59753c3590
+Status: Downloaded newer image for nginx:1.11-alpine
+ ---> bedece1f06cc
+Step 2/2 : COPY nginx.conf /etc/nginx/conf.d/default.conf
+ ---> ae859c5e2f97
+Successfully built ae859c5e2f97
+Successfully tagged pootle_nginx:latest
+WARNING: Image for service nginx was built because it did not already exist. To rebuild this image you must use `docker-compose build` or `docker-compose up --build`.
+Creating pootle_redis_1 ... done
+Creating pootle_mysql_1 ... done
+Creating pootle_pootle_1 ... done
+Creating pootle_nginx_1  ... done
+
+# fititnt at bravo in ~/tmp/pootle on git:master o [12:42:12]
+$ docker ps
+CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS               NAMES
+22e5a168219d        pootle_nginx        "nginx -g 'daemon of…"   35 seconds ago      Up 33 seconds       80/tcp, 443/tcp     pootle_nginx_1
+df43292b109f        pootle_pootle       "/usr/bin/supervisord"   38 seconds ago      Up 35 seconds       8080/tcp            pootle_pootle_1
+3260e7872e9d        redis               "docker-entrypoint.s…"   40 seconds ago      Up 38 seconds       6379/tcp            pootle_redis_1
+9f9fc59d3895        mariadb:10          "docker-entrypoint.s…"   40 seconds ago      Up 38 seconds       3306/tcp            pootle_mysql_1
+
+# fititnt at bravo in ~/tmp/pootle on git:master o [12:42:45]
+$ vim
+^CErro detectado ao processar /home/fititnt/.vim/bundle/nerdtree/plugin/NERD_tree.vim:
+linha  215:
+Interrompido
+Interrupção: Aperte ENTER ou digite um comando para continuar
+
+# fititnt at bravo in ~/tmp/pootle on git:master o [12:43:40]
+$ code .
+
+# fititnt at bravo in ~/tmp/pootle on git:master o [12:43:43]
+$ docker-compose up -d
+pootle_mysql_1 is up-to-date
+pootle_redis_1 is up-to-date
+pootle_pootle_1 is up-to-date
+Recreating pootle_nginx_1 ... done
+
+# fititnt at bravo in ~/tmp/pootle on git:master x [12:44:06]
+$ docker ps
+CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                         NAMES
+d7a24e838b09        pootle_nginx        "nginx -g 'daemon of…"   8 seconds ago       Up 6 seconds        0.0.0.0:80->80/tcp, 443/tcp   pootle_nginx_1
+df43292b109f        pootle_pootle       "/usr/bin/supervisord"   2 minutes ago       Up 2 minutes        8080/tcp                      pootle_pootle_1
+3260e7872e9d        redis               "docker-entrypoint.s…"   2 minutes ago       Up 2 minutes        6379/tcp                      pootle_redis_1
+9f9fc59d3895        mariadb:10          "docker-entrypoint.s…"   2 minutes ago       Up 2 minutes        3306/tcp                      pootle_mysql_1
+
+# fititnt at bravo in ~/tmp/pootle on git:master x [12:44:12]
+$ docker-compose up   
+pootle_mysql_1 is up-to-date
+pootle_redis_1 is up-to-date
+pootle_pootle_1 is up-to-date
+pootle_nginx_1 is up-to-date
+Attaching to pootle_mysql_1, pootle_redis_1, pootle_pootle_1, pootle_nginx_1
+mysql_1   | Initializing database
+mysql_1   | 
+mysql_1   | 
+mysql_1   | PLEASE REMEMBER TO SET A PASSWORD FOR THE MariaDB root USER !
+mysql_1   | To do so, start the server, then issue the following commands:
+mysql_1   | 
+mysql_1   | '/usr/bin/mysqladmin' -u root password 'new-password'
+mysql_1   | '/usr/bin/mysqladmin' -u root -h  password 'new-password'
+mysql_1   | 
+mysql_1   | Alternatively you can run:
+mysql_1   | '/usr/bin/mysql_secure_installation'
+mysql_1   | 
+mysql_1   | which will also give you the option of removing the test
+mysql_1   | databases and anonymous user created by default.  This is
+mysql_1   | strongly recommended for production servers.
+mysql_1   | 
+mysql_1   | See the MariaDB Knowledgebase at http://mariadb.com/kb or the
+mysql_1   | MySQL manual for more instructions.
+mysql_1   | 
+mysql_1   | Please report any problems at http://mariadb.org/jira
+mysql_1   | 
+mysql_1   | The latest information about MariaDB is available at http://mariadb.org/.
+mysql_1   | You can find additional information about the MySQL part at:
+mysql_1   | http://dev.mysql.com
+mysql_1   | Consider joining MariaDB's strong and vibrant community:
+mysql_1   | https://mariadb.org/get-involved/
+mysql_1   | 
+mysql_1   | Database initialized
+mysql_1   | MySQL init process in progress...
+mysql_1   | 2018-07-07 15:42:15 0 [Note] mysqld (mysqld 10.3.8-MariaDB-1:10.3.8+maria~jessie) starting as process 105 ...
+mysql_1   | 2018-07-07 15:42:15 0 [Note] InnoDB: Using Linux native AIO
+mysql_1   | 2018-07-07 15:42:15 0 [Note] InnoDB: Mutexes and rw_locks use GCC atomic builtins
+mysql_1   | 2018-07-07 15:42:15 0 [Note] InnoDB: Uses event mutexes
+mysql_1   | 2018-07-07 15:42:15 0 [Note] InnoDB: Compressed tables use zlib 1.2.8
+mysql_1   | 2018-07-07 15:42:15 0 [Note] InnoDB: Number of pools: 1
+mysql_1   | 2018-07-07 15:42:15 0 [Note] InnoDB: Using SSE2 crc32 instructions
+mysql_1   | 2018-07-07 15:42:15 0 [Note] InnoDB: Initializing buffer pool, total size = 256M, instances = 1, chunk size = 128M
+mysql_1   | 2018-07-07 15:42:15 0 [Note] InnoDB: Completed initialization of buffer pool
+mysql_1   | 2018-07-07 15:42:15 0 [Note] InnoDB: If the mysqld execution user is authorized, page cleaner thread priority can be changed. See the man page of setpriority().
+mysql_1   | 2018-07-07 15:42:15 0 [Note] InnoDB: 128 out of 128 rollback segments are active.
+mysql_1   | 2018-07-07 15:42:15 0 [Note] InnoDB: Creating shared tablespace for temporary tables
+mysql_1   | 2018-07-07 15:42:15 0 [Note] InnoDB: Setting file './ibtmp1' size to 12 MB. Physically writing the file full; Please wait ...
+mysql_1   | 2018-07-07 15:42:15 0 [Note] InnoDB: File './ibtmp1' size is now 12 MB.
+mysql_1   | 2018-07-07 15:42:15 0 [Note] InnoDB: Waiting for purge to start
+mysql_1   | 2018-07-07 15:42:15 0 [Note] InnoDB: 10.3.8 started; log sequence number 1630824; transaction id 21
+mysql_1   | 2018-07-07 15:42:15 0 [Note] InnoDB: Loading buffer pool(s) from /var/lib/mysql/ib_buffer_pool
+mysql_1   | 2018-07-07 15:42:15 0 [Note] Plugin 'FEEDBACK' is disabled.
+mysql_1   | 2018-07-07 15:42:15 0 [Warning] 'user' entry 'root@9f9fc59d3895' ignored in --skip-name-resolve mode.
+mysql_1   | 2018-07-07 15:42:15 0 [Warning] 'user' entry '@9f9fc59d3895' ignored in --skip-name-resolve mode.
+mysql_1   | 2018-07-07 15:42:15 0 [Warning] 'proxies_priv' entry '@% root@9f9fc59d3895' ignored in --skip-name-resolve mode.
+mysql_1   | 2018-07-07 15:42:15 0 [Note] InnoDB: Buffer pool(s) load completed at 180707 15:42:15
+mysql_1   | 2018-07-07 15:42:15 0 [Note] Reading of all Master_info entries succeded
+mysql_1   | 2018-07-07 15:42:15 0 [Note] Added new Master_info '' to hash table
+mysql_1   | 2018-07-07 15:42:15 0 [Note] mysqld: ready for connections.
+mysql_1   | Version: '10.3.8-MariaDB-1:10.3.8+maria~jessie'  socket: '/var/run/mysqld/mysqld.sock'  port: 0  mariadb.org binary distribution
+mysql_1   | Warning: Unable to load '/usr/share/zoneinfo/leap-seconds.list' as time zone. Skipping it.
+mysql_1   | 2018-07-07 15:42:17 10 [Warning] 'proxies_priv' entry '@% root@9f9fc59d3895' ignored in --skip-name-resolve mode.
+mysql_1   | 
+redis_1   | 1:C 07 Jul 15:42:07.677 # oO0OoO0OoO0Oo Redis is starting oO0OoO0OoO0Oo
+redis_1   | 1:C 07 Jul 15:42:07.677 # Redis version=4.0.10, bits=64, commit=00000000, modified=0, pid=1, just started
+redis_1   | 1:C 07 Jul 15:42:07.677 # Warning: no config file specified, using the default config. In order to specify a config file use redis-server /path/to/redis.conf
+redis_1   | 1:M 07 Jul 15:42:07.678 * Running mode=standalone, port=6379.
+redis_1   | 1:M 07 Jul 15:42:07.678 # WARNING: The TCP backlog setting of 511 cannot be enforced because /proc/sys/net/core/somaxconn is set to the lower value of 128.
+redis_1   | 1:M 07 Jul 15:42:07.678 # Server initialized
+redis_1   | 1:M 07 Jul 15:42:07.678 # WARNING overcommit_memory is set to 0! Background save may fail under low memory condition. To fix this issue add 'vm.overcommit_memory = 1' to /etc/sysctl.conf and then reboot or run the command 'sysctl vm.overcommit_memory=1' for this to take effect.
+redis_1   | 1:M 07 Jul 15:42:07.678 # WARNING you have Transparent Huge Pages (THP) support enabled in your kernel. This will create latency and memory usage issues with Redis. To fix this issue run the command 'echo never > /sys/kernel/mm/transparent_hugepage/enabled' as root, and add it to your /etc/rc.local in order to retain the setting after a reboot. Redis must be restarted after THP is disabled.
+redis_1   | 1:M 07 Jul 15:42:07.678 * Ready to accept connections
+mysql_1   | 2018-07-07 15:42:17 0 [Note] mysqld (initiated by: unknown): Normal shutdown
+mysql_1   | 2018-07-07 15:42:17 0 [Note] Event Scheduler: Purging the queue. 0 events
+mysql_1   | 2018-07-07 15:42:17 0 [Note] InnoDB: FTS optimize thread exiting.
+mysql_1   | 2018-07-07 15:42:17 0 [Note] InnoDB: Starting shutdown...
+mysql_1   | 2018-07-07 15:42:17 0 [Note] InnoDB: Dumping buffer pool(s) to /var/lib/mysql/ib_buffer_pool
+mysql_1   | 2018-07-07 15:42:17 0 [Note] InnoDB: Buffer pool(s) dump completed at 180707 15:42:17
+mysql_1   | 2018-07-07 15:42:19 0 [Note] InnoDB: Shutdown completed; log sequence number 1630833; transaction id 24
+mysql_1   | 2018-07-07 15:42:19 0 [Note] InnoDB: Removed temporary tablespace data file: "ibtmp1"
+mysql_1   | 2018-07-07 15:42:19 0 [Note] mysqld: Shutdown complete
+mysql_1   | 
+mysql_1   | 
+mysql_1   | MySQL init process done. Ready for start up.
+mysql_1   | 
+mysql_1   | 2018-07-07 15:42:19 0 [Note] mysqld (mysqld 10.3.8-MariaDB-1:10.3.8+maria~jessie) starting as process 1 ...
+mysql_1   | 2018-07-07 15:42:19 0 [Note] InnoDB: Using Linux native AIO
+mysql_1   | 2018-07-07 15:42:19 0 [Note] InnoDB: Mutexes and rw_locks use GCC atomic builtins
+mysql_1   | 2018-07-07 15:42:19 0 [Note] InnoDB: Uses event mutexes
+mysql_1   | 2018-07-07 15:42:19 0 [Note] InnoDB: Compressed tables use zlib 1.2.8
+mysql_1   | 2018-07-07 15:42:19 0 [Note] InnoDB: Number of pools: 1
+mysql_1   | 2018-07-07 15:42:19 0 [Note] InnoDB: Using SSE2 crc32 instructions
+mysql_1   | 2018-07-07 15:42:19 0 [Note] InnoDB: Initializing buffer pool, total size = 256M, instances = 1, chunk size = 128M
+mysql_1   | 2018-07-07 15:42:19 0 [Note] InnoDB: Completed initialization of buffer pool
+mysql_1   | 2018-07-07 15:42:19 0 [Note] InnoDB: If the mysqld execution user is authorized, page cleaner thread priority can be changed. See the man page of setpriority().
+mysql_1   | 2018-07-07 15:42:19 0 [Note] InnoDB: 128 out of 128 rollback segments are active.
+mysql_1   | 2018-07-07 15:42:19 0 [Note] InnoDB: Creating shared tablespace for temporary tables
+mysql_1   | 2018-07-07 15:42:19 0 [Note] InnoDB: Setting file './ibtmp1' size to 12 MB. Physically writing the file full; Please wait ...
+mysql_1   | 2018-07-07 15:42:19 0 [Note] InnoDB: File './ibtmp1' size is now 12 MB.
+mysql_1   | 2018-07-07 15:42:19 0 [Note] InnoDB: Waiting for purge to start
+mysql_1   | 2018-07-07 15:42:19 0 [Note] InnoDB: 10.3.8 started; log sequence number 1630833; transaction id 21
+mysql_1   | 2018-07-07 15:42:19 0 [Note] InnoDB: Loading buffer pool(s) from /var/lib/mysql/ib_buffer_pool
+mysql_1   | 2018-07-07 15:42:19 0 [Note] Plugin 'FEEDBACK' is disabled.
+mysql_1   | 2018-07-07 15:42:19 0 [Note] Server socket created on IP: '::'.
+mysql_1   | 2018-07-07 15:42:19 0 [Warning] 'proxies_priv' entry '@% root@9f9fc59d3895' ignored in --skip-name-resolve mode.
+mysql_1   | 2018-07-07 15:42:19 0 [Note] InnoDB: Buffer pool(s) load completed at 180707 15:42:19
+mysql_1   | 2018-07-07 15:42:19 0 [Note] Reading of all Master_info entries succeded
+mysql_1   | 2018-07-07 15:42:19 0 [Note] Added new Master_info '' to hash table
+mysql_1   | 2018-07-07 15:42:19 0 [Note] mysqld: ready for connections.
+mysql_1   | Version: '10.3.8-MariaDB-1:10.3.8+maria~jessie'  socket: '/var/run/mysqld/mysqld.sock'  port: 3306  mariadb.org binary distribution
+pootle_1  | /usr/lib/python2.7/dist-packages/supervisor/options.py:297: UserWarning: Supervisord is running as root and it is searching for its configuration file in default locations (including its current working directory); you probably want to specify a "-c" argument specifying an absolute path to a configuration file for improved security.
+pootle_1  |   'Supervisord is running as root and it is searching '
+pootle_1  | 2018-07-07 15:42:10,119 CRIT Supervisor running as root (no user in config file)
+pootle_1  | 2018-07-07 15:42:10,119 WARN Included extra file "/etc/supervisor/conf.d/supervisord.conf" during parsing
+pootle_1  | 2018-07-07 15:42:10,129 INFO RPC interface 'supervisor' initialized
+pootle_1  | 2018-07-07 15:42:10,129 CRIT Server 'unix_http_server' running without any HTTP authentication checking
+pootle_1  | 2018-07-07 15:42:10,129 INFO supervisord started with pid 1
+pootle_1  | 2018-07-07 15:42:11,132 INFO spawned: 'cron' with pid 9
+pootle_1  | 2018-07-07 15:42:11,134 INFO spawned: 'pootle' with pid 10
+pootle_1  | 2018-07-07 15:42:11,136 INFO spawned: 'pootleworker' with pid 11
+pootle_1  | 2018-07-07 15:42:11,736 INFO exited: pootle (exit status 0; not expected)
+pootle_1  | 2018-07-07 15:42:12,737 INFO success: cron entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+pootle_1  | 2018-07-07 15:42:12,739 INFO spawned: 'pootle' with pid 14
+pootle_1  | 2018-07-07 15:42:12,739 INFO success: pootleworker entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+pootle_1  | 2018-07-07 15:42:13,203 INFO exited: pootle (exit status 0; not expected)
+pootle_1  | 2018-07-07 15:42:15,207 INFO spawned: 'pootle' with pid 16
+pootle_1  | 2018-07-07 15:42:15,677 INFO exited: pootle (exit status 0; not expected)
+pootle_1  | 2018-07-07 15:42:18,682 INFO spawned: 'pootle' with pid 18
+pootle_1  | 2018-07-07 15:42:19,183 INFO exited: pootle (exit status 0; not expected)
+pootle_1  | 2018-07-07 15:42:20,184 INFO gave up: pootle entered FATAL state, too many start retries too quickly
+nginx_1   | 2018/07/07 15:45:03 [error] 7#7: *1 connect() failed (111: Connection refused) while connecting to upstream, client: 172.18.0.1, server: , request: "GET / HTTP/1.1", upstream: "fastcgi://172.18.0.4:8080", host: "127.0.0.1"
+nginx_1   | 172.18.0.1 - - [07/Jul/2018:15:45:03 +0000] "GET / HTTP/1.1" 502 576 "-" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/66.0.3359.181 Chrome/66.0.3359.181 Safari/537.36" "-"
+nginx_1   | 2018/07/07 15:45:24 [error] 7#7: *1 connect() failed (111: Connection refused) while connecting to upstream, client: 172.18.0.1, server: , request: "GET / HTTP/1.1", upstream: "fastcgi://172.18.0.4:8080", host: "127.0.0.1"
+nginx_1   | 172.18.0.1 - - [07/Jul/2018:15:45:24 +0000] "GET / HTTP/1.1" 502 576 "-" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/66.0.3359.181 Chrome/66.0.3359.181 Safari/537.36" "-"
+nginx_1   | 2018/07/07 15:45:25 [error] 7#7: *1 connect() failed (111: Connection refused) while connecting to upstream, client: 172.18.0.1, server: , request: "GET / HTTP/1.1", upstream: "fastcgi://172.18.0.4:8080", host: "127.0.0.1"
+nginx_1   | 172.18.0.1 - - [07/Jul/2018:15:45:25 +0000] "GET / HTTP/1.1" 502 576 "-" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/66.0.3359.181 Chrome/66.0.3359.181 Safari/537.36" "-"
+nginx_1   | 2018/07/07 15:45:25 [error] 7#7: *1 connect() failed (111: Connection refused) while connecting to upstream, client: 172.18.0.1, server: , request: "GET / HTTP/1.1", upstream: "fastcgi://172.18.0.4:8080", host: "127.0.0.1"
+nginx_1   | 172.18.0.1 - - [07/Jul/2018:15:45:25 +0000] "GET / HTTP/1.1" 502 576 "-" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/66.0.3359.181 Chrome/66.0.3359.181 Safari/537.36" "-"
+nginx_1   | 2018/07/07 15:45:25 [error] 7#7: *1 connect() failed (111: Connection refused) while connecting to upstream, client: 172.18.0.1, server: , request: "GET / HTTP/1.1", upstream: "fastcgi://172.18.0.4:8080", host: "127.0.0.1"
+nginx_1   | 172.18.0.1 - - [07/Jul/2018:15:45:25 +0000] "GET / HTTP/1.1" 502 576 "-" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/66.0.3359.181 Chrome/66.0.3359.181 Safari/537.36" "-"
+^CGracefully stopping... (press Ctrl+C again to force)
+Stopping pootle_nginx_1  ... done
+Stopping pootle_pootle_1 ... done
+Stopping pootle_redis_1  ... done
+Stopping pootle_mysql_1  ... done
+
+# fititnt at bravo in ~/tmp/pootle on git:master x [12:46:25]
+
+# fititnt at bravo in ~/tmp/pootle on git:master x [12:46:25]
+$ docker-compose exec pootle bash
+ERROR: No container found for pootle_1
+
+# fititnt at bravo in ~/tmp/pootle on git:master x [12:47:01]
+$ docker-compose up -d           
+Starting pootle_redis_1 ... done
+Starting pootle_mysql_1 ... done
+Starting pootle_pootle_1 ... done
+Starting pootle_nginx_1  ... done
+
+# fititnt at bravo in ~/tmp/pootle on git:master x [12:47:13]
+$ docker-compose exec pootle bash
+root@df43292b109f:/home/pootle# pootle migrate
+2018-07-07 15:47:20,803 INFO Loading custom settings from '/root/.pootle/pootle.conf'...
+2018-07-07 15:47:21,064 INFO Using Python PO
+Operations to perform:
+  Synchronize unmigrated apps: allauth, django_assets, django_rq, overextends
+  Apply all migrations: account, pootle_store, pootle_language, virtualfolder, pootle_app, pootle_project, sites, auth, reports, contenttypes, pootle_translationproject, accounts, pootle_statistics, sessions, staticpages, socialaccount
+Synchronizing apps without migrations:
+  Creating tables...
+  Installing custom SQL...
+  Installing indexes...
+Running migrations:
+  Applying accounts.0001_initial... OK
+  Applying account.0001_initial... OK
+  Applying account.0002_email_max_length... OK
+  Applying contenttypes.0001_initial... OK
+  Applying auth.0001_initial... OK
+  Applying pootle_app.0001_initial... OK
+  Applying pootle_language.0001_initial... OK
+  Applying accounts.0002_user_alt_src_langs... OK
+  Applying accounts.0003_remove_pootleprofile_id... OK
+  Applying pootle_project.0001_initial... OK
+  Applying pootle_translationproject.0001_initial... OK
+  Applying pootle_store.0001_initial... OK
+  Applying pootle_app.0002_mark_empty_dirs_as_obsolete... OK
+  Applying pootle_project.0002_remove_dynamic_model_choices_localfiletype... OK
+  Applying pootle_statistics.0001_initial... OK
+  Applying pootle_statistics.0002_update_submission_ordering... OK
+  Applying pootle_store.0002_make_suggestion_user_not_null... OK
+  Applying pootle_translationproject.0002_remove_translationproject_disabled... OK
+  Applying reports.0001_initial... OK
+  Applying sessions.0001_initial... OK
+  Applying sites.0001_initial... OK
+  Applying socialaccount.0001_initial... OK
+  Applying socialaccount.0002_token_max_lengths... OK
+  Applying socialaccount.0003_extra_data_default_dict... OK
+  Applying staticpages.0001_initial... OK
+  Applying staticpages.0002_change_url_field_help_text... OK
+  Applying virtualfolder.0001_initial... OK
+root@df43292b109f:/home/pootle# pootle initdb
+2018-07-07 15:49:45,753 INFO Loading custom settings from '/root/.pootle/pootle.conf'...
+2018-07-07 15:49:46,016 INFO Using Python PO
+Populating the database.
+Successfully populated the database.
+To create an admin user, use the `pootle createsuperuser` command.
+root@df43292b109f:/home/pootle# pootle createsuperuser
+2018-07-07 15:50:07,256 INFO Loading custom settings from '/root/.pootle/pootle.conf'...
+2018-07-07 15:50:07,521 INFO Using Python PO
+Username: joomleiro
+Email Address: rocha@ieee.org
+Password: 
+Password (again): 
+Superuser created successfully.
+root@df43292b109f:/home/pootle# pootle verify_user --all
+2018-07-07 15:50:56,384 INFO Loading custom settings from '/root/.pootle/pootle.conf'...
+2018-07-07 15:50:56,640 INFO Using Python PO
+Verified user 'joomleiro'
+root@df43292b109f:/home/pootle# quit
+bash: quit: command not found
+root@df43292b109f:/home/pootle# exit
+exit
+
+# fititnt at bravo in ~/tmp/pootle on git:master x [12:51:14]
+$ docker ps                      
+CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                         NAMES
+d7a24e838b09        pootle_nginx        "nginx -g 'daemon of…"   7 minutes ago       Up 4 minutes        0.0.0.0:80->80/tcp, 443/tcp   pootle_nginx_1
+df43292b109f        pootle_pootle       "/usr/bin/supervisord"   9 minutes ago       Up 4 minutes        8080/tcp                      pootle_pootle_1
+3260e7872e9d        redis               "docker-entrypoint.s…"   9 minutes ago       Up 4 minutes        6379/tcp                      pootle_redis_1
+9f9fc59d3895        mariadb:10          "docker-entrypoint.s…"   9 minutes ago       Up 4 minutes        3306/tcp                      pootle_mysql_1
+
+# fititnt at bravo in ~/tmp/pootle on git:master x [12:51:19]
+$ docker-compose up              
+pootle_redis_1 is up-to-date
+pootle_mysql_1 is up-to-date
+pootle_pootle_1 is up-to-date
+pootle_nginx_1 is up-to-date
+Attaching to pootle_redis_1, pootle_mysql_1, pootle_pootle_1, pootle_nginx_1
+redis_1   | 1:C 07 Jul 15:42:07.677 # oO0OoO0OoO0Oo Redis is starting oO0OoO0OoO0Oo
+redis_1   | 1:C 07 Jul 15:42:07.677 # Redis version=4.0.10, bits=64, commit=00000000, modified=0, pid=1, just started
+redis_1   | 1:C 07 Jul 15:42:07.677 # Warning: no config file specified, using the default config. In order to specify a config file use redis-server /path/to/redis.conf
+redis_1   | 1:M 07 Jul 15:42:07.678 * Running mode=standalone, port=6379.
+redis_1   | 1:M 07 Jul 15:42:07.678 # WARNING: The TCP backlog setting of 511 cannot be enforced because /proc/sys/net/core/somaxconn is set to the lower value of 128.
+redis_1   | 1:M 07 Jul 15:42:07.678 # Server initialized
+redis_1   | 1:M 07 Jul 15:42:07.678 # WARNING overcommit_memory is set to 0! Background save may fail under low memory condition. To fix this issue add 'vm.overcommit_memory = 1' to /etc/sysctl.conf and then reboot or run the command 'sysctl vm.overcommit_memory=1' for this to take effect.
+redis_1   | 1:M 07 Jul 15:42:07.678 # WARNING you have Transparent Huge Pages (THP) support enabled in your kernel. This will create latency and memory usage issues with Redis. To fix this issue run the command 'echo never > /sys/kernel/mm/transparent_hugepage/enabled' as root, and add it to your /etc/rc.local in order to retain the setting after a reboot. Redis must be restarted after THP is disabled.
+redis_1   | 1:M 07 Jul 15:42:07.678 * Ready to accept connections
+redis_1   | 1:signal-handler (1530978383) Received SIGTERM scheduling shutdown...
+redis_1   | 1:M 07 Jul 15:46:23.295 # User requested shutdown...
+redis_1   | 1:M 07 Jul 15:46:23.295 * Saving the final RDB snapshot before exiting.
+redis_1   | 1:M 07 Jul 15:46:23.340 * DB saved on disk
+redis_1   | 1:M 07 Jul 15:46:23.340 # Redis is now ready to exit, bye bye...
+redis_1   | 1:C 07 Jul 15:47:10.963 # oO0OoO0OoO0Oo Redis is starting oO0OoO0OoO0Oo
+redis_1   | 1:C 07 Jul 15:47:10.963 # Redis version=4.0.10, bits=64, commit=00000000, modified=0, pid=1, just started
+redis_1   | 1:C 07 Jul 15:47:10.963 # Warning: no config file specified, using the default config. In order to specify a config file use redis-server /path/to/redis.conf
+redis_1   | 1:M 07 Jul 15:47:10.964 * Running mode=standalone, port=6379.
+redis_1   | 1:M 07 Jul 15:47:10.964 # WARNING: The TCP backlog setting of 511 cannot be enforced because /proc/sys/net/core/somaxconn is set to the lower value of 128.
+redis_1   | 1:M 07 Jul 15:47:10.964 # Server initialized
+redis_1   | 1:M 07 Jul 15:47:10.964 # WARNING overcommit_memory is set to 0! Background save may fail under low memory condition. To fix this issue add 'vm.overcommit_memory = 1' to /etc/sysctl.conf and then reboot or run the command 'sysctl vm.overcommit_memory=1' for this to take effect.
+redis_1   | 1:M 07 Jul 15:47:10.964 # WARNING you have Transparent Huge Pages (THP) support enabled in your kernel. This will create latency and memory usage issues with Redis. To fix this issue run the command 'echo never > /sys/kernel/mm/transparent_hugepage/enabled' as root, and add it to your /etc/rc.local in order to retain the setting after a reboot. Redis must be restarted after THP is disabled.
+redis_1   | 1:M 07 Jul 15:47:10.964 * DB loaded from disk: 0.000 seconds
+redis_1   | 1:M 07 Jul 15:47:10.964 * Ready to accept connections
+nginx_1   | 2018/07/07 15:45:03 [error] 7#7: *1 connect() failed (111: Connection refused) while connecting to upstream, client: 172.18.0.1, server: , request: "GET / HTTP/1.1", upstream: "fastcgi://172.18.0.4:8080", host: "127.0.0.1"
+nginx_1   | 172.18.0.1 - - [07/Jul/2018:15:45:03 +0000] "GET / HTTP/1.1" 502 576 "-" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/66.0.3359.181 Chrome/66.0.3359.181 Safari/537.36" "-"
+nginx_1   | 2018/07/07 15:45:24 [error] 7#7: *1 connect() failed (111: Connection refused) while connecting to upstream, client: 172.18.0.1, server: , request: "GET / HTTP/1.1", upstream: "fastcgi://172.18.0.4:8080", host: "127.0.0.1"
+nginx_1   | 172.18.0.1 - - [07/Jul/2018:15:45:24 +0000] "GET / HTTP/1.1" 502 576 "-" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/66.0.3359.181 Chrome/66.0.3359.181 Safari/537.36" "-"
+nginx_1   | 2018/07/07 15:45:25 [error] 7#7: *1 connect() failed (111: Connection refused) while connecting to upstream, client: 172.18.0.1, server: , request: "GET / HTTP/1.1", upstream: "fastcgi://172.18.0.4:8080", host: "127.0.0.1"
+nginx_1   | 172.18.0.1 - - [07/Jul/2018:15:45:25 +0000] "GET / HTTP/1.1" 502 576 "-" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/66.0.3359.181 Chrome/66.0.3359.181 Safari/537.36" "-"
+nginx_1   | 2018/07/07 15:45:25 [error] 7#7: *1 connect() failed (111: Connection refused) while connecting to upstream, client: 172.18.0.1, server: , request: "GET / HTTP/1.1", upstream: "fastcgi://172.18.0.4:8080", host: "127.0.0.1"
+nginx_1   | 172.18.0.1 - - [07/Jul/2018:15:45:25 +0000] "GET / HTTP/1.1" 502 576 "-" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/66.0.3359.181 Chrome/66.0.3359.181 Safari/537.36" "-"
+nginx_1   | 2018/07/07 15:45:25 [error] 7#7: *1 connect() failed (111: Connection refused) while connecting to upstream, client: 172.18.0.1, server: , request: "GET / HTTP/1.1", upstream: "fastcgi://172.18.0.4:8080", host: "127.0.0.1"
+nginx_1   | 172.18.0.1 - - [07/Jul/2018:15:45:25 +0000] "GET / HTTP/1.1" 502 576 "-" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/66.0.3359.181 Chrome/66.0.3359.181 Safari/537.36" "-"
+nginx_1   | 2018/07/07 15:51:04 [error] 7#7: *1 connect() failed (111: Connection refused) while connecting to upstream, client: 172.18.0.1, server: , request: "GET / HTTP/1.1", upstream: "fastcgi://172.18.0.4:8080", host: "127.0.0.1"
+nginx_1   | 172.18.0.1 - - [07/Jul/2018:15:51:04 +0000] "GET / HTTP/1.1" 502 576 "-" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/66.0.3359.181 Chrome/66.0.3359.181 Safari/537.36" "-"
+nginx_1   | 2018/07/07 15:51:05 [error] 7#7: *1 connect() failed (111: Connection refused) while connecting to upstream, client: 172.18.0.1, server: , request: "GET / HTTP/1.1", upstream: "fastcgi://172.18.0.4:8080", host: "127.0.0.1"
+nginx_1   | 172.18.0.1 - - [07/Jul/2018:15:51:05 +0000] "GET / HTTP/1.1" 502 576 "-" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/66.0.3359.181 Chrome/66.0.3359.181 Safari/537.36" "-"
+pootle_1  | /usr/lib/python2.7/dist-packages/supervisor/options.py:297: UserWarning: Supervisord is running as root and it is searching for its configuration file in default locations (including its current working directory); you probably want to specify a "-c" argument specifying an absolute path to a configuration file for improved security.
+pootle_1  |   'Supervisord is running as root and it is searching '
+pootle_1  | 2018-07-07 15:42:10,119 CRIT Supervisor running as root (no user in config file)
+pootle_1  | 2018-07-07 15:42:10,119 WARN Included extra file "/etc/supervisor/conf.d/supervisord.conf" during parsing
+pootle_1  | 2018-07-07 15:42:10,129 INFO RPC interface 'supervisor' initialized
+pootle_1  | 2018-07-07 15:42:10,129 CRIT Server 'unix_http_server' running without any HTTP authentication checking
+pootle_1  | 2018-07-07 15:42:10,129 INFO supervisord started with pid 1
+pootle_1  | 2018-07-07 15:42:11,132 INFO spawned: 'cron' with pid 9
+pootle_1  | 2018-07-07 15:42:11,134 INFO spawned: 'pootle' with pid 10
+pootle_1  | 2018-07-07 15:42:11,136 INFO spawned: 'pootleworker' with pid 11
+pootle_1  | 2018-07-07 15:42:11,736 INFO exited: pootle (exit status 0; not expected)
+pootle_1  | 2018-07-07 15:42:12,737 INFO success: cron entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+pootle_1  | 2018-07-07 15:42:12,739 INFO spawned: 'pootle' with pid 14
+pootle_1  | 2018-07-07 15:42:12,739 INFO success: pootleworker entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+pootle_1  | 2018-07-07 15:42:13,203 INFO exited: pootle (exit status 0; not expected)
+pootle_1  | 2018-07-07 15:42:15,207 INFO spawned: 'pootle' with pid 16
+pootle_1  | 2018-07-07 15:42:15,677 INFO exited: pootle (exit status 0; not expected)
+pootle_1  | 2018-07-07 15:42:18,682 INFO spawned: 'pootle' with pid 18
+pootle_1  | 2018-07-07 15:42:19,183 INFO exited: pootle (exit status 0; not expected)
+pootle_1  | 2018-07-07 15:42:20,184 INFO gave up: pootle entered FATAL state, too many start retries too quickly
+pootle_1  | 2018-07-07 15:46:21,361 WARN received SIGTERM indicating exit request
+pootle_1  | 2018-07-07 15:46:21,361 INFO waiting for cron, pootleworker to die
+pootle_1  | 2018-07-07 15:46:21,394 INFO stopped: pootleworker (exit status 0)
+pootle_1  | 2018-07-07 15:46:22,397 INFO stopped: cron (terminated by SIGTERM)
+pootle_1  | /usr/lib/python2.7/dist-packages/supervisor/options.py:297: UserWarning: Supervisord is running as root and it is searching for its configuration file in default locations (including its current working directory); you probably want to specify a "-c" argument specifying an absolute path to a configuration file for improved security.
+pootle_1  |   'Supervisord is running as root and it is searching '
+pootle_1  | 2018-07-07 15:47:12,157 CRIT Supervisor running as root (no user in config file)
+pootle_1  | 2018-07-07 15:47:12,157 WARN Included extra file "/etc/supervisor/conf.d/supervisord.conf" during parsing
+pootle_1  | 2018-07-07 15:47:12,179 INFO RPC interface 'supervisor' initialized
+pootle_1  | 2018-07-07 15:47:12,180 CRIT Server 'unix_http_server' running without any HTTP authentication checking
+pootle_1  | 2018-07-07 15:47:12,180 INFO supervisord started with pid 1
+pootle_1  | 2018-07-07 15:47:13,182 INFO spawned: 'cron' with pid 10
+pootle_1  | 2018-07-07 15:47:13,183 INFO spawned: 'pootle' with pid 11
+pootle_1  | 2018-07-07 15:47:13,185 INFO spawned: 'pootleworker' with pid 12
+pootle_1  | 2018-07-07 15:47:13,666 INFO exited: pootle (exit status 0; not expected)
+pootle_1  | 2018-07-07 15:47:14,667 INFO success: cron entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+pootle_1  | 2018-07-07 15:47:14,669 INFO spawned: 'pootle' with pid 15
+pootle_1  | 2018-07-07 15:47:14,669 INFO success: pootleworker entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+pootle_1  | 2018-07-07 15:47:15,186 INFO exited: pootle (exit status 0; not expected)
+pootle_1  | 2018-07-07 15:47:17,189 INFO spawned: 'pootle' with pid 27
+pootle_1  | 2018-07-07 15:47:17,670 INFO exited: pootle (exit status 0; not expected)
+pootle_1  | 2018-07-07 15:47:20,675 INFO spawned: 'pootle' with pid 29
+pootle_1  | 2018-07-07 15:47:21,165 INFO exited: pootle (exit status 0; not expected)
+pootle_1  | 2018-07-07 15:47:22,167 INFO gave up: pootle entered FATAL state, too many start retries too quickly
+mysql_1   | Initializing database
+mysql_1   | 
+mysql_1   | 
+mysql_1   | PLEASE REMEMBER TO SET A PASSWORD FOR THE MariaDB root USER !
+mysql_1   | To do so, start the server, then issue the following commands:
+mysql_1   | 
+mysql_1   | '/usr/bin/mysqladmin' -u root password 'new-password'
+mysql_1   | '/usr/bin/mysqladmin' -u root -h  password 'new-password'
+mysql_1   | 
+mysql_1   | Alternatively you can run:
+mysql_1   | '/usr/bin/mysql_secure_installation'
+mysql_1   | 
+mysql_1   | which will also give you the option of removing the test
+mysql_1   | databases and anonymous user created by default.  This is
+mysql_1   | strongly recommended for production servers.
+mysql_1   | 
+mysql_1   | See the MariaDB Knowledgebase at http://mariadb.com/kb or the
+mysql_1   | MySQL manual for more instructions.
+mysql_1   | 
+mysql_1   | Please report any problems at http://mariadb.org/jira
+mysql_1   | 
+mysql_1   | The latest information about MariaDB is available at http://mariadb.org/.
+mysql_1   | You can find additional information about the MySQL part at:
+mysql_1   | http://dev.mysql.com
+mysql_1   | Consider joining MariaDB's strong and vibrant community:
+mysql_1   | https://mariadb.org/get-involved/
+mysql_1   | 
+mysql_1   | Database initialized
+mysql_1   | MySQL init process in progress...
+mysql_1   | 2018-07-07 15:42:15 0 [Note] mysqld (mysqld 10.3.8-MariaDB-1:10.3.8+maria~jessie) starting as process 105 ...
+mysql_1   | 2018-07-07 15:42:15 0 [Note] InnoDB: Using Linux native AIO
+mysql_1   | 2018-07-07 15:42:15 0 [Note] InnoDB: Mutexes and rw_locks use GCC atomic builtins
+mysql_1   | 2018-07-07 15:42:15 0 [Note] InnoDB: Uses event mutexes
+mysql_1   | 2018-07-07 15:42:15 0 [Note] InnoDB: Compressed tables use zlib 1.2.8
+mysql_1   | 2018-07-07 15:42:15 0 [Note] InnoDB: Number of pools: 1
+mysql_1   | 2018-07-07 15:42:15 0 [Note] InnoDB: Using SSE2 crc32 instructions
+mysql_1   | 2018-07-07 15:42:15 0 [Note] InnoDB: Initializing buffer pool, total size = 256M, instances = 1, chunk size = 128M
+mysql_1   | 2018-07-07 15:42:15 0 [Note] InnoDB: Completed initialization of buffer pool
+mysql_1   | 2018-07-07 15:42:15 0 [Note] InnoDB: If the mysqld execution user is authorized, page cleaner thread priority can be changed. See the man page of setpriority().
+mysql_1   | 2018-07-07 15:42:15 0 [Note] InnoDB: 128 out of 128 rollback segments are active.
+mysql_1   | 2018-07-07 15:42:15 0 [Note] InnoDB: Creating shared tablespace for temporary tables
+mysql_1   | 2018-07-07 15:42:15 0 [Note] InnoDB: Setting file './ibtmp1' size to 12 MB. Physically writing the file full; Please wait ...
+mysql_1   | 2018-07-07 15:42:15 0 [Note] InnoDB: File './ibtmp1' size is now 12 MB.
+mysql_1   | 2018-07-07 15:42:15 0 [Note] InnoDB: Waiting for purge to start
+mysql_1   | 2018-07-07 15:42:15 0 [Note] InnoDB: 10.3.8 started; log sequence number 1630824; transaction id 21
+mysql_1   | 2018-07-07 15:42:15 0 [Note] InnoDB: Loading buffer pool(s) from /var/lib/mysql/ib_buffer_pool
+mysql_1   | 2018-07-07 15:42:15 0 [Note] Plugin 'FEEDBACK' is disabled.
+mysql_1   | 2018-07-07 15:42:15 0 [Warning] 'user' entry 'root@9f9fc59d3895' ignored in --skip-name-resolve mode.
+mysql_1   | 2018-07-07 15:42:15 0 [Warning] 'user' entry '@9f9fc59d3895' ignored in --skip-name-resolve mode.
+mysql_1   | 2018-07-07 15:42:15 0 [Warning] 'proxies_priv' entry '@% root@9f9fc59d3895' ignored in --skip-name-resolve mode.
+mysql_1   | 2018-07-07 15:42:15 0 [Note] InnoDB: Buffer pool(s) load completed at 180707 15:42:15
+mysql_1   | 2018-07-07 15:42:15 0 [Note] Reading of all Master_info entries succeded
+mysql_1   | 2018-07-07 15:42:15 0 [Note] Added new Master_info '' to hash table
+mysql_1   | 2018-07-07 15:42:15 0 [Note] mysqld: ready for connections.
+mysql_1   | Version: '10.3.8-MariaDB-1:10.3.8+maria~jessie'  socket: '/var/run/mysqld/mysqld.sock'  port: 0  mariadb.org binary distribution
+mysql_1   | Warning: Unable to load '/usr/share/zoneinfo/leap-seconds.list' as time zone. Skipping it.
+mysql_1   | 2018-07-07 15:42:17 10 [Warning] 'proxies_priv' entry '@% root@9f9fc59d3895' ignored in --skip-name-resolve mode.
+mysql_1   | 
+mysql_1   | 2018-07-07 15:42:17 0 [Note] mysqld (initiated by: unknown): Normal shutdown
+mysql_1   | 2018-07-07 15:42:17 0 [Note] Event Scheduler: Purging the queue. 0 events
+mysql_1   | 2018-07-07 15:42:17 0 [Note] InnoDB: FTS optimize thread exiting.
+mysql_1   | 2018-07-07 15:42:17 0 [Note] InnoDB: Starting shutdown...
+mysql_1   | 2018-07-07 15:42:17 0 [Note] InnoDB: Dumping buffer pool(s) to /var/lib/mysql/ib_buffer_pool
+mysql_1   | 2018-07-07 15:42:17 0 [Note] InnoDB: Buffer pool(s) dump completed at 180707 15:42:17
+mysql_1   | 2018-07-07 15:42:19 0 [Note] InnoDB: Shutdown completed; log sequence number 1630833; transaction id 24
+mysql_1   | 2018-07-07 15:42:19 0 [Note] InnoDB: Removed temporary tablespace data file: "ibtmp1"
+mysql_1   | 2018-07-07 15:42:19 0 [Note] mysqld: Shutdown complete
+mysql_1   | 
+mysql_1   | 
+mysql_1   | MySQL init process done. Ready for start up.
+mysql_1   | 
+mysql_1   | 2018-07-07 15:42:19 0 [Note] mysqld (mysqld 10.3.8-MariaDB-1:10.3.8+maria~jessie) starting as process 1 ...
+mysql_1   | 2018-07-07 15:42:19 0 [Note] InnoDB: Using Linux native AIO
+mysql_1   | 2018-07-07 15:42:19 0 [Note] InnoDB: Mutexes and rw_locks use GCC atomic builtins
+mysql_1   | 2018-07-07 15:42:19 0 [Note] InnoDB: Uses event mutexes
+mysql_1   | 2018-07-07 15:42:19 0 [Note] InnoDB: Compressed tables use zlib 1.2.8
+mysql_1   | 2018-07-07 15:42:19 0 [Note] InnoDB: Number of pools: 1
+mysql_1   | 2018-07-07 15:42:19 0 [Note] InnoDB: Using SSE2 crc32 instructions
+mysql_1   | 2018-07-07 15:42:19 0 [Note] InnoDB: Initializing buffer pool, total size = 256M, instances = 1, chunk size = 128M
+mysql_1   | 2018-07-07 15:42:19 0 [Note] InnoDB: Completed initialization of buffer pool
+mysql_1   | 2018-07-07 15:42:19 0 [Note] InnoDB: If the mysqld execution user is authorized, page cleaner thread priority can be changed. See the man page of setpriority().
+mysql_1   | 2018-07-07 15:42:19 0 [Note] InnoDB: 128 out of 128 rollback segments are active.
+mysql_1   | 2018-07-07 15:42:19 0 [Note] InnoDB: Creating shared tablespace for temporary tables
+mysql_1   | 2018-07-07 15:42:19 0 [Note] InnoDB: Setting file './ibtmp1' size to 12 MB. Physically writing the file full; Please wait ...
+mysql_1   | 2018-07-07 15:42:19 0 [Note] InnoDB: File './ibtmp1' size is now 12 MB.
+mysql_1   | 2018-07-07 15:42:19 0 [Note] InnoDB: Waiting for purge to start
+mysql_1   | 2018-07-07 15:42:19 0 [Note] InnoDB: 10.3.8 started; log sequence number 1630833; transaction id 21
+mysql_1   | 2018-07-07 15:42:19 0 [Note] InnoDB: Loading buffer pool(s) from /var/lib/mysql/ib_buffer_pool
+mysql_1   | 2018-07-07 15:42:19 0 [Note] Plugin 'FEEDBACK' is disabled.
+mysql_1   | 2018-07-07 15:42:19 0 [Note] Server socket created on IP: '::'.
+mysql_1   | 2018-07-07 15:42:19 0 [Warning] 'proxies_priv' entry '@% root@9f9fc59d3895' ignored in --skip-name-resolve mode.
+mysql_1   | 2018-07-07 15:42:19 0 [Note] InnoDB: Buffer pool(s) load completed at 180707 15:42:19
+mysql_1   | 2018-07-07 15:42:19 0 [Note] Reading of all Master_info entries succeded
+mysql_1   | 2018-07-07 15:42:19 0 [Note] Added new Master_info '' to hash table
+mysql_1   | 2018-07-07 15:42:19 0 [Note] mysqld: ready for connections.
+mysql_1   | Version: '10.3.8-MariaDB-1:10.3.8+maria~jessie'  socket: '/var/run/mysqld/mysqld.sock'  port: 3306  mariadb.org binary distribution
+mysql_1   | 2018-07-07 15:46:23 0 [Note] mysqld (initiated by: unknown): Normal shutdown
+mysql_1   | 2018-07-07 15:46:23 0 [Note] Event Scheduler: Purging the queue. 0 events
+mysql_1   | 2018-07-07 15:46:23 0 [Note] InnoDB: FTS optimize thread exiting.
+mysql_1   | 2018-07-07 15:46:23 0 [Note] InnoDB: Starting shutdown...
+mysql_1   | 2018-07-07 15:46:23 0 [Note] InnoDB: Dumping buffer pool(s) to /var/lib/mysql/ib_buffer_pool
+mysql_1   | 2018-07-07 15:46:23 0 [Note] InnoDB: Buffer pool(s) dump completed at 180707 15:46:23
+mysql_1   | 2018-07-07 15:46:24 0 [Note] InnoDB: Shutdown completed; log sequence number 1630842; transaction id 22
+mysql_1   | 2018-07-07 15:46:24 0 [Note] InnoDB: Removed temporary tablespace data file: "ibtmp1"
+mysql_1   | 2018-07-07 15:46:24 0 [Note] mysqld: Shutdown complete
+mysql_1   | 
+mysql_1   | 2018-07-07 15:47:11 0 [Note] mysqld (mysqld 10.3.8-MariaDB-1:10.3.8+maria~jessie) starting as process 1 ...
+mysql_1   | 2018-07-07 15:47:11 0 [Note] InnoDB: Using Linux native AIO
+mysql_1   | 2018-07-07 15:47:11 0 [Note] InnoDB: Mutexes and rw_locks use GCC atomic builtins
+mysql_1   | 2018-07-07 15:47:11 0 [Note] InnoDB: Uses event mutexes
+mysql_1   | 2018-07-07 15:47:11 0 [Note] InnoDB: Compressed tables use zlib 1.2.8
+mysql_1   | 2018-07-07 15:47:11 0 [Note] InnoDB: Number of pools: 1
+mysql_1   | 2018-07-07 15:47:11 0 [Note] InnoDB: Using SSE2 crc32 instructions
+mysql_1   | 2018-07-07 15:47:11 0 [Note] InnoDB: Initializing buffer pool, total size = 256M, instances = 1, chunk size = 128M
+mysql_1   | 2018-07-07 15:47:11 0 [Note] InnoDB: Completed initialization of buffer pool
+mysql_1   | 2018-07-07 15:47:11 0 [Note] InnoDB: If the mysqld execution user is authorized, page cleaner thread priority can be changed. See the man page of setpriority().
+mysql_1   | 2018-07-07 15:47:11 0 [Note] InnoDB: 128 out of 128 rollback segments are active.
+mysql_1   | 2018-07-07 15:47:11 0 [Note] InnoDB: Creating shared tablespace for temporary tables
+mysql_1   | 2018-07-07 15:47:11 0 [Note] InnoDB: Setting file './ibtmp1' size to 12 MB. Physically writing the file full; Please wait ...
+mysql_1   | 2018-07-07 15:47:11 0 [Note] InnoDB: File './ibtmp1' size is now 12 MB.
+mysql_1   | 2018-07-07 15:47:11 0 [Note] InnoDB: Waiting for purge to start
+mysql_1   | 2018-07-07 15:47:12 0 [Note] InnoDB: 10.3.8 started; log sequence number 1630842; transaction id 21
+mysql_1   | 2018-07-07 15:47:12 0 [Note] InnoDB: Loading buffer pool(s) from /var/lib/mysql/ib_buffer_pool
+mysql_1   | 2018-07-07 15:47:12 0 [Note] Plugin 'FEEDBACK' is disabled.
+mysql_1   | 2018-07-07 15:47:12 0 [Note] Server socket created on IP: '::'.
+mysql_1   | 2018-07-07 15:47:12 0 [Warning] 'proxies_priv' entry '@% root@9f9fc59d3895' ignored in --skip-name-resolve mode.
+mysql_1   | 2018-07-07 15:47:12 0 [Note] InnoDB: Buffer pool(s) load completed at 180707 15:47:12
+mysql_1   | 2018-07-07 15:47:12 0 [Note] Reading of all Master_info entries succeded
+mysql_1   | 2018-07-07 15:47:12 0 [Note] Added new Master_info '' to hash table
+mysql_1   | 2018-07-07 15:47:12 0 [Note] mysqld: ready for connections.
+mysql_1   | Version: '10.3.8-MariaDB-1:10.3.8+maria~jessie'  socket: '/var/run/mysqld/mysqld.sock'  port: 3306  mariadb.org binary distribution
+mysql_1   | 2018-07-07 15:47:13 9 [Warning] Aborted connection 9 to db: 'pootle_db' user: 'pootle' host: '172.18.0.4' (Got an error reading communication packets)
+mysql_1   | 2018-07-07 15:47:15 10 [Warning] Aborted connection 10 to db: 'pootle_db' user: 'pootle' host: '172.18.0.4' (Got an error reading communication packets)
+mysql_1   | 2018-07-07 15:47:17 11 [Warning] Aborted connection 11 to db: 'pootle_db' user: 'pootle' host: '172.18.0.4' (Got an error reading communication packets)
+mysql_1   | 2018-07-07 15:47:21 12 [Warning] Aborted connection 12 to db: 'pootle_db' user: 'pootle' host: '172.18.0.4' (Got an error reading communication packets)
+mysql_1   | 2018-07-07 15:48:45 17 [Warning] Aborted connection 17 to db: 'pootle_db' user: 'pootle' host: '172.18.0.4' (Got an error reading communication packets)
+mysql_1   | 2018-07-07 15:49:57 18 [Warning] Aborted connection 18 to db: 'pootle_db' user: 'pootle' host: '172.18.0.4' (Got an error reading communication packets)
+mysql_1   | 2018-07-07 15:50:48 19 [Warning] Aborted connection 19 to db: 'pootle_db' user: 'pootle' host: '172.18.0.4' (Got an error reading communication packets)
+mysql_1   | 2018-07-07 15:50:56 20 [Warning] Aborted connection 20 to db: 'pootle_db' user: 'pootle' host: '172.18.0.4' (Got an error reading communication packets)
+nginx_1   | 2018/07/07 15:52:29 [error] 7#7: *4 connect() failed (111: Connection refused) while connecting to upstream, client: 172.18.0.1, server: , request: "GET / HTTP/1.1", upstream: "fastcgi://172.18.0.4:8080", host: "127.0.0.1"
+nginx_1   | 172.18.0.1 - - [07/Jul/2018:15:52:29 +0000] "GET / HTTP/1.1" 502 576 "-" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/66.0.3359.181 Chrome/66.0.3359.181 Safari/537.36" "-"
+nginx_1   | 2018/07/07 15:52:30 [error] 7#7: *4 connect() failed (111: Connection refused) while connecting to upstream, client: 172.18.0.1, server: , request: "GET / HTTP/1.1", upstream: "fastcgi://172.18.0.4:8080", host: "127.0.0.1"
+nginx_1   | 172.18.0.1 - - [07/Jul/2018:15:52:30 +0000] "GET / HTTP/1.1" 502 576 "-" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/66.0.3359.181 Chrome/66.0.3359.181 Safari/537.36" "-"
+nginx_1   | 2018/07/07 15:52:31 [error] 7#7: *4 connect() failed (111: Connection refused) while connecting to upstream, client: 172.18.0.1, server: , request: "GET / HTTP/1.1", upstream: "fastcgi://172.18.0.4:8080", host: "127.0.0.1"
+nginx_1   | 172.18.0.1 - - [07/Jul/2018:15:52:31 +0000] "GET / HTTP/1.1" 502 576 "-" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/66.0.3359.181 Chrome/66.0.3359.181 Safari/537.36" "-"
+nginx_1   | 2018/07/07 15:52:31 [error] 7#7: *4 connect() failed (111: Connection refused) while connecting to upstream, client: 172.18.0.1, server: , request: "GET / HTTP/1.1", upstream: "fastcgi://172.18.0.4:8080", host: "127.0.0.1"
+nginx_1   | 172.18.0.1 - - [07/Jul/2018:15:52:31 +0000] "GET / HTTP/1.1" 502 576 "-" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/66.0.3359.181 Chrome/66.0.3359.181 Safari/537.36" "-"
+nginx_1   | 2018/07/07 15:52:32 [error] 7#7: *4 connect() failed (111: Connection refused) while connecting to upstream, client: 172.18.0.1, server: , request: "GET / HTTP/1.1", upstream: "fastcgi://172.18.0.4:8080", host: "127.0.0.1"
+nginx_1   | 172.18.0.1 - - [07/Jul/2018:15:52:32 +0000] "GET / HTTP/1.1" 502 576 "-" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/66.0.3359.181 Chrome/66.0.3359.181 Safari/537.36" "-"
+^CGracefully stopping... (press Ctrl+C again to force)
+Stopping pootle_nginx_1  ... done
+Stopping pootle_pootle_1 ... done
+Stopping pootle_redis_1  ... done
+Stopping pootle_mysql_1  ... done
+
+# fititnt at bravo in ~/tmp/pootle on git:master x [12:53:02]
+
+### fititnt: same error message as @enumag at https://github.com/1drop/pootle/issues/10
