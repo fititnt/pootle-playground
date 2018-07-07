@@ -1,12 +1,12 @@
 # docker-compose for Pootle development.
 #
-# Note: Requires docker-compose 1.10+.
+# Tested with docker-compose version 1.21
 version: "2.4"
 services:
 
   base:
     build:
-      context: ./docker
+      context: ./pootle/docker
 
   base-postgres:
     extends: base
